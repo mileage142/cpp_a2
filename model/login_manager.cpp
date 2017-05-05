@@ -7,6 +7,8 @@
  * ***************************************************************************/
 #include "login_manager.h"
 
+using namespace model;
+
 bool login (const std::string & name, const std::string & password, 
             const character::player & player)
 {

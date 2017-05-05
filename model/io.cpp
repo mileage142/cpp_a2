@@ -6,5 +6,7 @@
  *
  * ***************************************************************************/
 #include "io.h"
+using namespace model;
 
+//io::ascii_player_loader
 
