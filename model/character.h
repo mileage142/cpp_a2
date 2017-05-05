@@ -93,6 +93,13 @@ namespace model
                 int gold_pieces = 0;
             // Operations
             public :
+                 player() : username("test"), 
+                password(0), intelligence(0), wisdom(0), dexterity(0), strength(0),
+                constitution(0), hp(0), mana(0), moves(0), location(0), equipment(),
+                inventory(), gold_pieces(){}
+
+
+                
                 player(std::string username, int password) : username(), 
                 password(), intelligence(), wisdom(), dexterity(), strength(),
                 constitution(), hp(), mana(), moves(), location(), equipment(),

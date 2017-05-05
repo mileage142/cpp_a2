@@ -3,6 +3,18 @@ namespace controller {
     /**
      * \brief Implement your commands for the system as children of the command class. You will need to use inheritance and polymorphism
      */
+    //new edits my me
+    enum class commands
+    {
+        LOOK
+        OPEN
+        CLOSE
+        WEAR
+        REMOVE
+        MOVE
+        BUY
+     }
+
 
     class command : public std::function {
         // Attributes
