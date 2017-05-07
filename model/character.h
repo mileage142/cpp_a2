@@ -75,13 +75,14 @@ namespace model
             // Attributes
             private :
                 static const int NUM_WEAR_SLOTS = 5;
+                //TODO pplayer id added!
                 std::string username;
                 /// the hash of the password
                 int password;
                 const int intelligence;
                 const int wisdom;
-                const int dexterity;
                 const int strength;
+                const int dexterity;
                 const int constitution;
                 int hp;
                 int mana;
@@ -94,16 +95,23 @@ namespace model
             // Operations
             public :
                  player() : username("test"), 
-                password(0), intelligence(0), wisdom(0), dexterity(0), strength(0),
+                password(0), intelligence(0), wisdom(0), strength(0), dexterity(0),
                 constitution(0), hp(0), mana(0), moves(0), location(0), equipment(),
                 inventory(), gold_pieces(){}
 
 
                 
-                player(std::string username, int password) : username(), 
-                password(), intelligence(), wisdom(), dexterity(), strength(),
-                constitution(), hp(), mana(), moves(), location(), equipment(),
-                inventory(), gold_pieces(){}
+                player(std::string _username, int _password, int _intelligence, 
+                int _wisdom, int _dexterity, int _strength, int _constitution, 
+                int _hp, int _mana, int _moves, game_location::room *_location, 
+                item::item* _equipment[NUM_WEAR_SLOTS], 
+                std::vector<item::item*> _inventory, int _gold_pieces) : 
+                username(_username), password(_password), 
+                intelligence(_intelligence), wisdom(_wisdom), 
+                dexterity(_dexterity), strength(_strength),
+                constitution(_constitution), hp(_hp), mana(_mana), 
+                moves(_moves), location(_location), equipment(_equipment),
+                inventory(_inventory), gold_pieces(_gold_pieces){}
 
                 purchase_result buy (int listnum);
                 purchase_result buy (std::string name);

@@ -18,6 +18,9 @@
 #include "login_manager.h"
 //#include "io.h"
 #include "model.h"
+#include <boost/tokenizer.hpp>
+
+
 
 namespace model
 {
@@ -40,9 +43,11 @@ namespace model
             private:
                 character::player* player_temp;
             public:
-            bool load();
-            bool validate();
+            //constructor
             ascii_player_loader() : player_temp(nullptr) {}
+            //returns a pointer to player that can be added in model
+            virtual std::unique_ptr<player> load(std::string player_file) override;
+            virtual bool validate() override;
         };
         class ascii_shop_loader : public ascii_loader
         {

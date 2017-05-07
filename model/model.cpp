@@ -15,6 +15,7 @@ int main(int argv, char** argc)
     std::cout << "something" << std::endl;
     model::model m;
     m.ascii_load("fake_name");
+    //std::cout << pptr << std::endl;
     std::cout << "possibly this worked" << std::endl;
 }
 
@@ -42,7 +43,7 @@ bool model::model::ascii_load (const std::string & name)
     io::ascii_player_loader player_load();
     std::unique_ptr<character::player> pptr = std::make_unique<character::player>("fred", 123);
     //model1.players.push_back(pptr);
-    
+   std::cout << pptr->username << std::endl;
     return true;
 }
 
