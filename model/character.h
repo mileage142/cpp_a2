@@ -22,6 +22,8 @@
 //TODO dummy to make complile
 //static const int NUM_WEAR_SLOTS = 5;
 
+using namespace model;
+
 namespace model 
 {
     namespace character 
@@ -60,7 +62,13 @@ namespace model
                 static const int NUM_WEAR_SLOTS = 5;
                 game_location::room * current_room;
                 item::item* equipment[NUM_WEAR_SLOTS];
-                std::vector<item::item*> inventory;
+                std::vector<item::item*> inventory;                
+                purchase_result buy (int listnum);
+                purchase_result buy (std::string name);
+                int balance ();
+                wear_result wear (const item::item& item);
+                void move (game_location::direction dir);
+
             // Operations
             public :
                 shopkeeper(void) : current_room(), equipment(), inventory(){}
@@ -88,35 +96,37 @@ namespace model
                 int mana;
                 int moves;
                 /// the room the player is currently in
-                game_location::room *  location = nullptr;
-                item::item* equipment[NUM_WEAR_SLOTS];
-                std::vector<item::item*> inventory;
+                model::game_location::room *  location = nullptr;
+                //TODO equipment converted from [] to std::array for compilation
+                //not really that urgent
+                std::array<item::item*, NUM_WEAR_SLOTS> equipment;
+                std::vector<model::item::item*> inventory;
                 int gold_pieces = 0;
             // Operations
             public :
                  player() : username("test"), 
-                password(0), intelligence(0), wisdom(0), strength(0), dexterity(0),
-                constitution(0), hp(0), mana(0), moves(0), location(0), equipment(),
-                inventory(), gold_pieces(){}
+                password(0), intelligence(0), wisdom(0), strength(0), 
+                dexterity(0), constitution(0), hp(0), mana(0), moves(0), 
+                location(0), equipment(), inventory(), gold_pieces(){}
 
 
                 
-                player(std::string _username, int _password, int _intelligence, 
-                int _wisdom, int _dexterity, int _strength, int _constitution, 
+                player(std::string _username, int _password,int _intelligence, 
+                int _wisdom, int _strength, int _dexterity, int _constitution, 
                 int _hp, int _mana, int _moves, game_location::room *_location, 
-                item::item* _equipment[NUM_WEAR_SLOTS], 
+                std::array<item::item*, NUM_WEAR_SLOTS> _equipment, 
                 std::vector<item::item*> _inventory, int _gold_pieces) : 
                 username(_username), password(_password), 
                 intelligence(_intelligence), wisdom(_wisdom), 
-                dexterity(_dexterity), strength(_strength),
+               strength(_strength), dexterity(_dexterity), 
                 constitution(_constitution), hp(_hp), mana(_mana), 
                 moves(_moves), location(_location), equipment(_equipment),
                 inventory(_inventory), gold_pieces(_gold_pieces){}
 
-                purchase_result buy (int listnum);
-                purchase_result buy (std::string name);
+                character::purchase_result buy (int listnum);
+                character::purchase_result buy (std::string name);
                 int balance ();
-                wear_result wear (const item::item& item);
+                character::wear_result wear (const item::item& item);
                 void move (game_location::direction dir);
         };
     }

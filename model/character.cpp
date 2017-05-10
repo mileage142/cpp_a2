@@ -20,6 +20,7 @@ int shopkeeper::sell (int id, int value)
 std::string shopkeeper::display_wares()
 {
     //TODO replace this with wares
+    //list shopkeeper.inventory
     return "item";
 }
 

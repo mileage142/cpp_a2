@@ -6,5 +6,9 @@
  *
  * ***************************************************************************/
 #include "model.h"
+/*
+item::item* return_item (int id)
+{
+    for(item in itemsi
 
-
+*/

@@ -46,7 +46,7 @@ namespace model
             //constructor
             ascii_player_loader() : player_temp(nullptr) {}
             //returns a pointer to player that can be added in model
-            virtual std::unique_ptr<player> load(std::string player_file) override;
+            virtual std::unique_ptr<character::player> load(std::string player_file);
             virtual bool validate() override;
         };
         class ascii_shop_loader : public ascii_loader

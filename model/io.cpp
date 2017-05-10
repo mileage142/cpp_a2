@@ -54,7 +54,23 @@ std::list<std::unique_ptr<player>> io::ascii_player_loader::load(std::string pla
             //TODO needs to be an object with these things
             temp_equipment[] = {details[1], details[2], details[4], details[5],
             details[6], details[7], details[8], details[9]}
-            temp_inventory =
+            
+            
+            //if inventory is empty
+            std::vector<item::item*> temp_inventory;
+            if(details[13] == 0)
+            {
+                temp_inventory = nullptr;
+            }
+            else
+            {
+                //add the number of items specified in player file
+                for(int i = 0; i < details[13]; ++i]
+                {
+                    std::unique_ptr<item::item> i = std::make_unique<item::item>
+                    temp_inventory.push_back(std::move(i));
+                }
+             }
 
             std::unique_ptr<character::player> pptr = 
             std:make_unique<character::player>player player_ID(username, 
