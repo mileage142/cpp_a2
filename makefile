@@ -5,13 +5,13 @@
 #
 #
 #
-all: model view controller
-		g++ -o model view controller -g
+all: model.o view.o controller.o
+		g++ -o game modell.o view.o controller.o -g
 
 #Model
 
-model:  character.o game_location.o item.o io.o model.o login_manager.o 
-		g++ -o character.o game_location.o item.o io.o model.o login_manager.o -g
+modell:  character.o game_location.o item.o io.o model.o login_manager.o 
+		g++ -o modell.o character.o game_location.o item.o io.o model.o login_manager.o -g
 
 game_location.o: model/game_location.cpp model/game_location.h
 		g++ -c -Wall -pedantic -std=c++14 model/game_location.cpp
@@ -33,17 +33,17 @@ model.o: model/model.cpp model/model.h
 
 #View
 
-view: display_manager.o  
-		g++ -o display_manager.o -g 
+view.o: display_manager.o  
+		g++ -o view.o display_manager.o -g 
 		#-lboost_program_options 
 
 display_manager.o: view/display_manager.cpp view/display_manager.h
 		g++ -c -Wall -pedantic -std=c++14 view/display_manager.cpp
 
-#Controller
+#Control
 
-controller: command.o controller.o
-		g++ -o command.o controller.o -g
+control.o: command.o controller.o
+		g++ -o control.o command.o controller.o -g
 
 command.o: controller/command.cpp controller/command.h
 		g++ -c -Wall -pedantic -std=c++14 controller/command.cpp

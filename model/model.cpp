@@ -1,5 +1,5 @@
 /******************************************************************************
- * game_location.h             CPT323  Assingment 2            Miles Thomas    s3494949
+ * model.cpp             CPT323  Assingment 2            Miles Thomas    s3494949
  *
  *
  *
@@ -36,16 +36,16 @@ bool ascii_save (const std::string& name)
 }
 bool model::model::ascii_load (const std::string & name)
 {
-    model model1;
+    
     //
     //TODO call all the io::load functions and put their vectors in the object
     //player player0;
     //character::player player1("fred", 123)  ;
     //character player2;
     io::ascii_player_loader player_load();
-    std::unique_ptr<character::player> pptr = std::make_unique<character::player>("fred", 123);
+    std::unique_ptr<character::player> pptr = std::make_unique<character::player>();
     //model1.players.push_back(pptr);
-   std::cout << pptr->username << std::endl;
+    //std::cout << pptr->username << std::endl;
     return true;
 }
 
@@ -54,22 +54,30 @@ bool model::model::ascii_load (const std::string & name)
 
 model::character::player& model::model::get_player (unsigned int id)
 {
-    for(unsigned int i; i == players.size(); ++i)
+    for(unsigned int i = 0; i == players.size(); ++i)
         if(i == id)
+        {
             return players[i];
-        //TODO needs exception handling if no players present
-    else
-        return players[id];
+        }
+       //TODO needs exception handling if no players present
+        else
+        {
+            return players[id];
+        }
 }
 model::game_location::area& model::model::get_area (unsigned int id)
 
 {
     for(unsigned int i = 0 ;i == areas.size(); ++i)
         if(i == id)
+        {
             return areas[i];
+        }
         else
+        {    
         //TODO execption!
         return areas[id];
+        }
 }
 /*
 model::game_location::room& model::model::get_room (int id)
@@ -84,17 +92,27 @@ model::character::shopkeeper& model::model::get_shop_keeper (unsigned int id)
 {
     for(unsigned int i = 0; i == shopkeepers.size(); ++i)
         if(i == id)
+        {
             return shopkeepers[i];
-    else
+        }
+        else
+        {
         //TODO this should be an exception
-        return shopkeepers[id];
+            return shopkeepers[id];
+        }
 }
 model::item::item& model::model::get_item (unsigned int id)
 {
     for(unsigned int i =0; i == items.size(); ++i)
+    {
         if(i == id)
+        {
             return items[i];
+        }
         else        
+        {
         //TODO exeptions!!!
             return items[id];
+        }
+    } 
 }

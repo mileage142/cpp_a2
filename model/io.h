@@ -9,6 +9,9 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <iostream>
+#include <list>
+#include <fstream>
 //for login manager
 #include <map>
 
@@ -32,12 +35,14 @@ namespace model
             // Operations
             private:
                 //TODO obvs this shouldnt be here
-                int dummy;
+                std::vector<std::string> tokens;
+
             public :
                 virtual bool load ();
                 virtual bool validate ();
-                ascii_loader() : dummy(0) {}
+                virtual std::vector<std::string> load_file(std::ifstream file);
         };
+        //This class creates a pointer to player
         class ascii_player_loader : public ascii_loader
         {
             private:
@@ -45,9 +50,31 @@ namespace model
             public:
             //constructor
             ascii_player_loader() : player_temp(nullptr) {}
-            //returns a pointer to player that can be added in model
-            virtual std::unique_ptr<character::player> load(std::string player_file);
+            //returns a list of pointers to player that can be added in model
+            std::list<std::unique_ptr<character::player>> load(std::string player_file);
+            std::vector<std::string> load_file(std::string file);
             virtual bool validate() override;
+        };
+       
+        class ascii_area_loader : public ascii_loader
+        {
+            private:
+                game_location::area* area_temp;
+            public:
+            bool load();
+            bool validate();
+            ascii_area_loader() : area_temp(nullptr) {}
+            std::vector<std::unique_ptr<game_location::area>> load(std::string area_file); 
+        };
+        class ascii_room_loader : public ascii_loader
+        {
+            private:
+                game_location::room* room_temp;
+            public:
+            bool load();
+            bool validate();
+            ascii_room_loader() : room_temp(nullptr) {}
+            std::list<std::unique_ptr<game_location::room>> load(std::string room_file); 
         };
         class ascii_shop_loader : public ascii_loader
         {
@@ -57,15 +84,7 @@ namespace model
             bool load();
             bool validate();
             ascii_shop_loader() : shop_temp(nullptr) {}
-        };
-        class ascii_area_loader : public ascii_loader
-        {
-            private:
-                game_location::area* area_temp;
-            public:
-            bool load();
-            bool validate();
-            ascii_area_loader() : area_temp(nullptr) {}
+            std::list<std::unique_ptr<character::shopkeeper>> load(std::string shop_file);
         };
         class ascii_item_loader : public ascii_loader
         {
@@ -75,6 +94,7 @@ namespace model
             bool load();
             bool validate();
             ascii_item_loader() : item_temp(nullptr) {}
+            std::list<std::unique_ptr<item::item>> load(std::string item_file); 
         };
 
         /**
