@@ -7,8 +7,8 @@
  * ***************************************************************************/
 #include "io.h"
 using namespace model;
-
-std::vector<std::string> io::ascii_player_loader::load_file(std::string in_file)
+/*
+std::vector<std::string> io::ascii_loader::load_file(std::string in_file)
 {
     std::vector<std::string> lines;
     //std::list<std::unique_ptr<character::player>> players;

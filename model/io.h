@@ -27,20 +27,26 @@
 
 namespace model
 {
-    namespace io {
+    namespace io 
+    {
         /**
          * \brief you are required to implement these with inheritance and template specialisation. so you should have a template specialisation for each kind of object you wish to save. 
          */
-        class ascii_loader {
+        class ascii_loader 
+        {
             // Operations
             private:
                 //TODO obvs this shouldnt be here
-                std::vector<std::string> tokens;
+                //std::vector<std::string> tokens;
 
             public :
+                //virtual bool ascii_loader(void){}
+                ~ascii_loader();
                 virtual bool load ();
                 virtual bool validate ();
-                virtual std::vector<std::string> load_file(std::ifstream file);
+                virtual std::vector<std::string> load_file(std::string in_file);
+                friend class model;
+
         };
         //This class creates a pointer to player
         class ascii_player_loader : public ascii_loader
@@ -50,6 +56,7 @@ namespace model
             public:
             //constructor
             ascii_player_loader() : player_temp(nullptr) {}
+            ~ascii_player_loader();
             //returns a list of pointers to player that can be added in model
             std::list<std::unique_ptr<character::player>> load(std::string player_file);
             std::vector<std::string> load_file(std::string file);
@@ -94,7 +101,9 @@ namespace model
             bool load();
             bool validate();
             ascii_item_loader() : item_temp(nullptr) {}
-            std::list<std::unique_ptr<item::item>> load(std::string item_file); 
+            ~ascii_item_loader();
+            //std::list<std::unique_ptr<item::item>> load(std::string item_file); 
+            virtual std::vector<std::string> load_file(std::string in_file) override;
         };
 
         /**

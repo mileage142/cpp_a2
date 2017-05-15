@@ -50,5 +50,7 @@ namespace model
             game_location::room& get_room (unsigned int id);
             character::shopkeeper& get_shop_keeper (unsigned int id);
             item::item& get_item (unsigned int id);
+            friend class ascii_loader;
+
     };
 }

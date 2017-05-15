@@ -37,13 +37,17 @@ bool ascii_save (const std::string& name)
 bool model::model::ascii_load (const std::string & name)
 {
     
+    io::ascii_item_loader pl;
+   // io::ascii_loader * pl1 = &pl;
+   // pl1->io::ascii_loader::load_file("/data/item.txt");
+
     //
     //TODO call all the io::load functions and put their vectors in the object
     //player player0;
     //character::player player1("fred", 123)  ;
     //character player2;
-    io::ascii_player_loader player_load();
-    std::unique_ptr<character::player> pptr = std::make_unique<character::player>();
+    //io::ascii_player_loader player_load();
+    //std::unique_ptr<character::player> pptr = std::make_unique<character::player>();
     //model1.players.push_back(pptr);
     //std::cout << pptr->username << std::endl;
     return true;
