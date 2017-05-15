@@ -38,13 +38,13 @@ namespace model
             private:
                 //TODO obvs this shouldnt be here
                 //std::vector<std::string> tokens;
-
+                std::vector<std::string> tokens;
             public :
-                //virtual bool ascii_loader(void){}
-                ~ascii_loader();
-                virtual bool load ();
-                virtual bool validate ();
-                virtual std::vector<std::string> load_file(std::string in_file);
+                ascii_loader(){}
+                //~ascii_loader();
+                bool load_file(std::string file);
+                bool validate ();
+                //virtual std::vector<std::string> load_file(std::string in_file);
                 friend class model;
 
         };
@@ -60,7 +60,7 @@ namespace model
             //returns a list of pointers to player that can be added in model
             std::list<std::unique_ptr<character::player>> load(std::string player_file);
             std::vector<std::string> load_file(std::string file);
-            virtual bool validate() override;
+            bool validate();
         };
        
         class ascii_area_loader : public ascii_loader
@@ -98,12 +98,11 @@ namespace model
             private:
                 item::item* item_temp;
             public:
-            bool load();
-            bool validate();
+            //bool load();
+            //bool validate();
             ascii_item_loader() : item_temp(nullptr) {}
             ~ascii_item_loader();
             //std::list<std::unique_ptr<item::item>> load(std::string item_file); 
-            virtual std::vector<std::string> load_file(std::string in_file) override;
         };
 
         /**

@@ -37,18 +37,22 @@ namespace model
             // Attributes
             private :
                 int id;
+                model::item::wear_location wear_loc;
                 std::string name;
                 std::string description;
-                model::item::wear_location wear_loc;
+                int price;
                 model::item::item_type type;
                 int armour_class;
             public :
-                item(): name(0), description(0), wear_loc(), type(), armour_class(0){}
-                item(std::string _name, std::string _description,
-                wear_location _wear_loc, item_type _type, int _armour_class):        
-                name(_name), description(_description), wear_loc(_wear_loc),
+                item(): id(0), wear_loc(), name(0), description(0), price(0), type(), armour_class(0){}
+                item(int _id, wear_location _wear_loc, std::string _name, 
+                std::string _description, int _price, item_type _type, 
+                int _armour_class):        
+                id(_id), wear_loc(_wear_loc), name(_name), 
+                description(_description), price(_price), 
                 type(_type), armour_class(_armour_class){}
                 item* return_item (int id);
+                ~item();
 
         };
     }

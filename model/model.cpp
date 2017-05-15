@@ -13,8 +13,9 @@
 int main(int argv, char** argc)
 {
     std::cout << "something" << std::endl;
-    model::model m;
-    m.ascii_load("fake_name");
+    io::ascii_loader loader;
+    loader.load_file("data/items.txt");
+    //m.ascii_load("fake_name");
     //std::cout << pptr << std::endl;
     std::cout << "possibly this worked" << std::endl;
 }
@@ -36,8 +37,8 @@ bool ascii_save (const std::string& name)
 }
 bool model::model::ascii_load (const std::string & name)
 {
-    
-    io::ascii_item_loader pl;
+      
+   // io::ascii_item_loader pl;
    // io::ascii_loader * pl1 = &pl;
    // pl1->io::ascii_loader::load_file("/data/item.txt");
 

@@ -7,19 +7,20 @@
  * ***************************************************************************/
 #include "io.h"
 using namespace model;
-/*
-std::vector<std::string> io::ascii_loader::load_file(std::string in_file)
+
+bool io::ascii_loader::load_file(std::string in_file)
 {
-    std::vector<std::string> lines;
+    //std::vector<std::string> lines;
     //std::list<std::unique_ptr<character::player>> players;
-    std::ifstream file(in_file);
+    std::ifstream file(in_file, std::ifstream::in);
+    //file.open(in_file);
     std::string line;
-    
+    io::ascii_loader loader; 
 
     if(!file.is_open() || file.fail())
     {
         std::cout << "Player file could not be opened" << std::endl;
-        return lines;
+        return false;
         //TODO needs proper exception handling
     }
     else
@@ -32,11 +33,18 @@ std::vector<std::string> io::ascii_loader::load_file(std::string in_file)
                 //TODO check if continue is approros here
                 continue;
                 //add line
-                lines.push_back(line);
+                loader.tokens.push_back(line);
                 
             }
+            else
+            {
+            //TODO may need to make custom seperator
+            boost::tokenizer<boost::char_separator<char>> tok(line);
+            boost::tokenizer<boost::char_separator<char>>::iterator it = tok.begin(); 
+
+            }   
         }
-        return lines;
+        return true;
     }
 }
             /*
