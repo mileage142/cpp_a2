@@ -27,24 +27,36 @@ bool io::ascii_loader::load_file(std::string in_file)
     {
         while(getline(file, line))
         {
+            std::cout << "into file processing" << std::endl;
             //check for empty line
             if (line == "")
             {
                 //TODO check if continue is approros here
                 continue;
                 //add line
-                loader.tokens.push_back(line);
                 
             }
             else
             {
-            //TODO may need to make custom seperator
-            boost::tokenizer<boost::char_separator<char>> tok(line);
-            boost::tokenizer<boost::char_separator<char>>::iterator it = tok.begin(); 
 
-            }   
+                std::cout << "tokenising" << std::endl;
+                //TODO may need to make custom seperator
+                boost::char_separator<char> delim("\t");
+                boost::tokenizer<boost::char_separator<char>> tok(line, delim);
+                for(boost::tokenizer<boost::char_separator<char>>::iterator 
+                it = tok.begin(); it != tok.end(); ++it)
+                {
+                    loader.tokens.push_back(*it);
+
+                }   
+            }
+        }
+        for(int i=0; i != loader.tokens.size(); ++i)
+        {
+            std::cout << loader.tokens[i] << std::endl;
         }
         return true;
+
     }
 }
             /*

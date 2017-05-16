@@ -17,7 +17,8 @@ int main(int argv, char** argc)
     loader.load_file("data/items.txt");
     //m.ascii_load("fake_name");
     //std::cout << pptr << std::endl;
-    std::cout << "possibly this worked" << std::endl;
+    loader.load_file("data/players.txt");
+    std::cout << "end of main" << std::endl;
 }
 
 
