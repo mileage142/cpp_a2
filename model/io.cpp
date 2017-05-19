@@ -15,7 +15,7 @@ bool io::ascii_loader::load_file(std::string in_file)
     std::ifstream file(in_file, std::ifstream::in);
     //file.open(in_file);
     std::string line;
-    io::ascii_loader loader; 
+    //io::ascii_loader loader; 
 
     if(!file.is_open() || file.fail())
     {
@@ -46,19 +46,62 @@ bool io::ascii_loader::load_file(std::string in_file)
                 for(boost::tokenizer<boost::char_separator<char>>::iterator 
                 it = tok.begin(); it != tok.end(); ++it)
                 {
-                    loader.tokens.push_back(*it);
+                    this->tokens.push_back(*it);
 
                 }   
             }
         }
-        for(int i=0; i != loader.tokens.size(); ++i)
-        {
-            std::cout << loader.tokens[i] << std::endl;
-        }
-        return true;
+        
 
     }
 }
+
+bool io::ascii_item_loader::create_item()
+{
+    std::cout << "create_item()?!!!!!!" << std::endl;
+    unsigned int item_length = 5;
+    
+    //for(unsigned int i=-1; i > this->tokens.size(); ++i)
+    
+    //{
+        //using postincrement in order to keep indexes unsigned
+        unsigned int i = 0;
+        std::cout << i << std::endl;   
+
+        std::cout << this->tokens.size() << std::endl;   
+        do 
+        {
+           std::string::size_type sz;
+            //std::cout << "first class" << std::endl;
+            //item::item tokens[i+1](std::stoi(tokens[++i]), tokens[++i],
+            //tokens[++i], tokens[++i], (std::stoi(tokens[++i]), 0, 0);
+            
+            int id = std::stoi(this->tokens[i++], nullptr);
+            std::cout << id << std::endl;
+            std::string loc = this->tokens[i++];
+            item::wear_location worn_loc = item::wear_location(loc);
+            //std::cout << worn_loc << std::endl;
+            std::string name = this->tokens[i++];
+            std::cout << name << std::endl;
+            std::string description = this->tokens[i++];
+            std::cout << description << std::endl;
+            int price = std::stoi(this->tokens[i++], nullptr);
+            std::cout << price << std::endl;
+            //std::cout << this->tokens[++i] << std::endl;
+            item::item_type type = item::item_type(1);
+            item::item an_item(id, worn_loc, name, description, price, type, 0);
+            
+
+            std::cout << i << std::endl;
+
+            std::cout << "end of class" << std::endl;
+            
+       } while(i < (this->tokens.size()));
+    //}
+    return true;
+}
+
+
             /*
 std::list<std::unique_ptr<character::player>> io::ascii_player_loader::load(std::string player_file)
 {

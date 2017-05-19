@@ -11,13 +11,14 @@
 
 //dummy main for testing
 int main(int argv, char** argc)
+//this main will become model::ascii_load
 {
     std::cout << "something" << std::endl;
-    io::ascii_loader loader;
-    loader.load_file("data/items.txt");
-    //m.ascii_load("fake_name");
-    //std::cout << pptr << std::endl;
-    loader.load_file("data/players.txt");
+    io::ascii_item_loader item_loader;
+    item_loader.load_file("data/items.txt");
+    item_loader.create_item();
+   // io::ascii_loader player_loader;
+   // player_loader.load_file("data/players.txt");
     std::cout << "end of main" << std::endl;
 }
 
@@ -61,6 +62,7 @@ bool model::model::ascii_load (const std::string & name)
 model::character::player& model::model::get_player (unsigned int id)
 {
     for(unsigned int i = 0; i == players.size(); ++i)
+    {    
         if(i == id)
         {
             return players[i];
@@ -70,11 +72,13 @@ model::character::player& model::model::get_player (unsigned int id)
         {
             return players[id];
         }
+    }
 }
 model::game_location::area& model::model::get_area (unsigned int id)
 
 {
     for(unsigned int i = 0 ;i == areas.size(); ++i)
+    {    
         if(i == id)
         {
             return areas[i];
@@ -84,6 +88,7 @@ model::game_location::area& model::model::get_area (unsigned int id)
         //TODO execption!
         return areas[id];
         }
+    }
 }
 /*
 model::game_location::room& model::model::get_room (int id)
@@ -97,6 +102,7 @@ model::game_location::room& model::model::get_room (int id)
 model::character::shopkeeper& model::model::get_shop_keeper (unsigned int id)
 {
     for(unsigned int i = 0; i == shopkeepers.size(); ++i)
+    { 
         if(i == id)
         {
             return shopkeepers[i];
@@ -106,6 +112,7 @@ model::character::shopkeeper& model::model::get_shop_keeper (unsigned int id)
         //TODO this should be an exception
             return shopkeepers[id];
         }
+    }
 }
 model::item::item& model::model::get_item (unsigned int id)
 {

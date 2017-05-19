@@ -13,7 +13,7 @@ namespace model
 {
     namespace item 
     {
-        enum class wear_location 
+        enum class wear_location  
         {
             WRISTS,
             ARMS,
@@ -25,6 +25,7 @@ namespace model
             SHIELD,
             WIELDED,
             NO_LOC = -1
+           // item::wear_location get_wear_location(std::string wear_loc)
         };
         enum class item_type 
         {
@@ -51,9 +52,10 @@ namespace model
                 id(_id), wear_loc(_wear_loc), name(_name), 
                 description(_description), price(_price), 
                 type(_type), armour_class(_armour_class){}
+                // ~item();
                 item* return_item (int id);
-                ~item();
-
+         //       std::string get_wear_location(item::wear_location wear_loc)
         };
+        get_wear_location(item::wear_location wear_loc);
     }
 }

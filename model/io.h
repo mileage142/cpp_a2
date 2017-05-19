@@ -35,13 +35,13 @@ namespace model
         class ascii_loader 
         {
             // Operations
-            private:
+            protected:
                 //TODO obvs this shouldnt be here
                 //std::vector<std::string> tokens;
                 std::vector<std::string> tokens;
             public :
                 ascii_loader(){}
-                //~ascii_loader();
+                ~ascii_loader(){}
                 bool load_file(std::string file);
                 bool validate ();
                 //virtual std::vector<std::string> load_file(std::string in_file);
@@ -101,7 +101,8 @@ namespace model
             //bool load();
             //bool validate();
             ascii_item_loader() : item_temp(nullptr) {}
-            ~ascii_item_loader();
+            ~ascii_item_loader(){}
+            bool create_item(void);
             //std::list<std::unique_ptr<item::item>> load(std::string item_file); 
         };
 
