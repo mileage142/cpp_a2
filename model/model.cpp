@@ -17,6 +17,18 @@ int main(int argv, char** argc)
     io::ascii_item_loader item_loader;
     item_loader.load_file("data/items.txt");
     item_loader.create_item();
+    model::model m;
+
+    m.ascii_load();
+    //TODO take out function for checking load!
+      for(auto it = m.items.begin(); it != m.items.end(); ++it)
+        { 
+            if(it->id == 9)
+            {
+                std::cout << it->description << std::endl;
+            }
+        }
+
    // io::ascii_loader player_loader;
    // player_loader.load_file("data/players.txt");
     std::cout << "end of main" << std::endl;
@@ -36,10 +48,36 @@ bool binary_load (const std::string& name)
 bool ascii_save (const std::string& name)
 {
     return true;
+
 }
-bool model::model::ascii_load (const std::string & name)
+//create all model objects and save into vectors in model
+bool model::model::ascii_load (void)
 {
-      
+    //TODO these will need to be entered through file args
+    io::ascii_item_loader item_loader;
+    item_loader.load_file("data/items.txt");
+    this->items = item_loader.create_item();
+    /*TODO these will load the other bits into model
+    io::ascii_player_loader player_loader;
+    player_loader.load_file("data/players.txt");
+    this->players = player_loader.create_player();
+    io::ascii_area_loader area_loader;
+    area_loader.load_file("data/areas.txt")
+    this->areas = area_loader.create_area();
+    io::ascii_shop_loader shop_loader;
+    shop_loader.load_file("data/shopkeepers.txt")
+    this->shopkeepers = shop_loader.create_shopkeeper();
+    */
+    
+    for(auto it = items.begin(); it != items.end(); ++it)
+        { 
+            if(it->id == 9)
+            {
+                std::cout << it->description << std::endl;
+            }
+        }
+   
+   
    // io::ascii_item_loader pl;
    // io::ascii_loader * pl1 = &pl;
    // pl1->io::ascii_loader::load_file("/data/item.txt");

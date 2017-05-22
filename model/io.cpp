@@ -56,7 +56,7 @@ bool io::ascii_loader::load_file(std::string in_file)
     }
 }
 
-bool io::ascii_item_loader::create_item()
+std::vector<item::item> io::ascii_item_loader::create_item()
 {
     std::cout << "create_item()?!!!!!!" << std::endl;
     unsigned int item_length = 5;
@@ -69,6 +69,8 @@ bool io::ascii_item_loader::create_item()
         std::cout << i << std::endl;   
 
         std::cout << this->tokens.size() << std::endl;   
+        //create vector to store all items
+        std::vector<item::item> items;
         do 
         {
            std::string::size_type sz;
@@ -91,17 +93,18 @@ bool io::ascii_item_loader::create_item()
             //std::cout << this->tokens[++i] << std::endl;
             item::item_type type = item::item_type(1);
             item::item an_item(id, worn_loc, name, description, price, type, 0);
-            std::vector<item::item> items;
             items.push_back(an_item);
+            //model::m.push_back(an_item);
             //troubleshooting
             std::cout << an_item.description << std::endl;            
-             for(auto it = items.begin(); it != items.end(); ++it)
-    { 
-        if(it->id == 9)
-        {
-            std::cout << it->description << std::endl;
-        }
-    }
+            //TODO move this code for accessing items!
+            for(auto it = items.begin(); it != items.end(); ++it)
+            { 
+                if(it->id == 9)
+                {
+                    std::cout << it->description << std::endl;
+                }
+            }
             std::cout << i << std::endl;
 
             std::cout << "end of class" << std::endl;
@@ -115,7 +118,7 @@ bool io::ascii_item_loader::create_item()
             std::cout items[i].description << std::endl;
         }
     }*/
-    return true;
+    return items;
 }
 
 

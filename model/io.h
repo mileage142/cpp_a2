@@ -102,7 +102,7 @@ namespace model
             //bool validate();
             ascii_item_loader() : item_temp(nullptr) {}
             ~ascii_item_loader(){}
-            bool create_item(void);
+            std::vector<item::item> create_item(void);
             //std::list<std::unique_ptr<item::item>> load(std::string item_file); 
         };
 
