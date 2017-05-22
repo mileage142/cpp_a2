@@ -95,11 +95,11 @@ bool io::ascii_item_loader::create_item()
             items.push_back(an_item);
             //troubleshooting
             std::cout << an_item.description << std::endl;            
-             for(std::vector<item::item>::iterator it = items.begin(); it != items.end(); ++it)
+             for(auto it = items.begin(); it != items.end(); ++it)
     { 
-        if(it.id == 9)
+        if(it->id == 9)
         {
-            std::cout << *it << std::endl;
+            std::cout << it->description << std::endl;
         }
     }
             std::cout << i << std::endl;
