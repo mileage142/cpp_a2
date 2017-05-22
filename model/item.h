@@ -36,7 +36,8 @@ namespace model
         class item 
         {
             // Attributes
-            private :
+            // TODO make this private again
+            public :
                 int id;
                 model::item::wear_location wear_loc;
                 std::string name;
@@ -56,6 +57,6 @@ namespace model
                 item* return_item (int id);
          //       std::string get_wear_location(item::wear_location wear_loc)
         };
-        get_wear_location(item::wear_location wear_loc);
+        wear_location get_wear_location(std::string loc);
     }
 }

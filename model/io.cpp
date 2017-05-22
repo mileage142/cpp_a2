@@ -79,7 +79,8 @@ bool io::ascii_item_loader::create_item()
             int id = std::stoi(this->tokens[i++], nullptr);
             std::cout << id << std::endl;
             std::string loc = this->tokens[i++];
-            item::wear_location worn_loc = item::wear_location(loc);
+            //item::wear_location worn_loc = item::wear_location{loc};
+            item::wear_location worn_loc = item::get_wear_location(loc);
             //std::cout << worn_loc << std::endl;
             std::string name = this->tokens[i++];
             std::cout << name << std::endl;
@@ -90,14 +91,30 @@ bool io::ascii_item_loader::create_item()
             //std::cout << this->tokens[++i] << std::endl;
             item::item_type type = item::item_type(1);
             item::item an_item(id, worn_loc, name, description, price, type, 0);
-            
-
+            std::vector<item::item> items;
+            items.push_back(an_item);
+            //troubleshooting
+            std::cout << an_item.description << std::endl;            
+             for(std::vector<item::item>::iterator it = items.begin(); it != items.end(); ++it)
+    { 
+        if(it.id == 9)
+        {
+            std::cout << *it << std::endl;
+        }
+    }
             std::cout << i << std::endl;
 
             std::cout << "end of class" << std::endl;
             
        } while(i < (this->tokens.size()));
     //}
+   /* for(int i = items.start; i = items.end; ++i)
+    { 
+        if(items[i].id == 9)
+        {
+            std::cout items[i].description << std::endl;
+        }
+    }*/
     return true;
 }
 
