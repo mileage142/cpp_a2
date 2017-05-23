@@ -81,9 +81,9 @@ namespace model
         class player 
         {
             // Attributes
-            private :
-                static const int NUM_WEAR_SLOTS = 5;
-                //TODO pplayer id added!
+            public :
+                static const int NUM_WEAR_SLOTS = 9;
+                int id;
                 std::string username;
                 /// the hash of the password
                 int password;
@@ -104,19 +104,19 @@ namespace model
                 int gold_pieces = 0;
             // Operations
             public :
-                 player() : username("test"), 
+                 player() : id(0),  username("test"), 
                 password(0), intelligence(0), wisdom(0), strength(0), 
                 dexterity(0), constitution(0), hp(0), mana(0), moves(0), 
                 location(0), equipment(), inventory(), gold_pieces(){}
 
 
                 
-                player(std::string _username, int _password,int _intelligence, 
+                player(int _id, std::string _username, int _password,int _intelligence, 
                 int _wisdom, int _strength, int _dexterity, int _constitution, 
                 int _hp, int _mana, int _moves, game_location::room *_location, 
                 std::array<item::item*, NUM_WEAR_SLOTS> _equipment, 
                 std::vector<item::item*> _inventory, int _gold_pieces) : 
-                username(_username), password(_password), 
+                id(_id), username(_username), password(_password), 
                 intelligence(_intelligence), wisdom(_wisdom), 
                strength(_strength), dexterity(_dexterity), 
                 constitution(_constitution), hp(_hp), mana(_mana), 

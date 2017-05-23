@@ -25,12 +25,30 @@ item::wear_location item::get_wear_location(std::string loc)
             return location;
         }
     }
-    //return wear_loc_name[9];
-    //
-    //return static_cast<item::wear_location>(-1);
 }
 
-/*
+
+item::item_type item::get_item_type(wear_location loc)
+{
+    wear_location wear_loc = loc;
+    std::array<std::string, 3>item_type_name{"WEAPON", "ARMOR", "INVALID"};
+    //only weapons are wielded and a weapon must be able ot be wielded
+    if(wear_loc == static_cast<wear_location>(8))
+    {
+        return static_cast<item_type>(0);
+    }
+    //any type that isn't weapon or armor
+    if(wear_loc == static_cast<wear_location>(9))
+    {
+        return static_cast<item_type>(2);
+    }
+    //hence everything else must be armor
+    else
+    {
+        return static_cast<item_type>(1);
+    }
+}
+  /*
 //Version of get_wear location returns int cast to wear_location
 item::wear_location get_wear_location(std::string loc)
 {
@@ -47,24 +65,5 @@ item::wear_location get_wear_location(std::string loc)
     }
     return static_cast<item::wear_location>(-1);
 }
+*/
 
-
-std::string item::item_type::get_item_type(wear_loc)
-{
-    //std::string item_type_name[] = {"WEAPON", "ARMOR", "INVALID"}
-    //only weapons are wielded and a weapon must be able ot be wielded
-    if(item::wear_location::get_wear_location(wear_loc) == "WIELDED")
-    {
-        return "WEAPON";
-    }
-    //any type that isn't weapon or armor
-    if(item::wear_location::get_wear_location(wear_loc) == "NO_LOC")
-    {
-        return "INVALID";
-    }
-    //hence everything else must be armor
-    else
-    {
-        return "ARMOR";
-    }
-  */  

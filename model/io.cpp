@@ -56,68 +56,140 @@ bool io::ascii_loader::load_file(std::string in_file)
     }
 }
 
+std::vector<character::player> io::ascii_player_loader::create_player()
+{
+    std::cout << "create_player()?!!!!!!" << std::endl;
+    unsigned int i = 0;
+    std::cout << i << std::endl;   
+    std::cout << this->tokens.size() << std::endl;   
+    //create vector to store all players
+    std::vector<character::player> players;
+    do 
+    {
+        //0
+        int id = std::stoi(this->tokens[i++], nullptr);
+        std::cout << id << std::endl;
+        //1
+        std::string username = this->tokens[i++];
+        //2    
+        int password = std::stoi(this->tokens[i++], nullptr);
+        std::cout << password << std::endl;
+        //3 room id for game_location::room
+        //TODO build function get_room
+        game_location::room* location = model::get_room(
+        this->tokens[i++]);
+        //4-12 wear slots 1-9
+        //TODO create pointer to model::items to make this work
+        std::array<item::item*, character::player::NUM_WEAR_SLOTS> equipment
+        {   
+            model->items.id(std::stoi(this->tokens[i++])), 
+            model->items.id(std::stoi(this->tokens[i++])),
+            model->items.id(std::stoi(this->tokens[i++])),
+            model->items.id(std::stoi(this->tokens[i++])),
+            model->items.id(std::stoi(this->tokens[i++])),
+            model->items.id(std::stoi(this->tokens[i++])),
+            model->items.id(std::stoi(this->tokens[i++])),
+            model->items.id(std::stoi(this->tokens[i++])),
+            model->items.id(std::stoi(this->tokens[i++])),
+        };
+        //13 # of items in inventory
+        if(std::stoi(this->tokens[i++]) == 0)
+        {
+            std::vector<item::item*, 0> inventory{}
+        }
+        //this else would be different if inventory carryig implemented
+        else
+        {
+            std::vector<item::item*, 0> inventory{}
+        }
+        //14 # of GP
+        int gp = std::stoi(this->tokens[i++], nullptr);
+        //15 Intelligence
+        int intelligence = std::stoi(this->tokens[i++], nullptr);
+        //16 Wisdom
+        int wisdom = std::stoi(this->tokens[i++], nullptr);
+        //17 Strength
+        int strength = std::stoi(this->tokens[i++], nullptr);
+        //18 Dexterity
+        int dexterity = std::stoi(this->tokens[i++], nullptr);
+        //19 Constitution
+        int constitution = std::stoi(this->tokens[i++], nullptr);
+        //20 Hit Points
+        int hp = std::stoi(this->tokens[i++], nullptr);
+        //21 Mana
+        int mana = std::stoi(this->tokens[i++], nullptr);
+        //22 Movement allowance
+        int moves = std::stoi(this->tokens[i++], nullptr);
+            
+        //create player
+        character::player a_player(id, username, password, location, equipment,
+        inventory, gp, intelligence, wisdom, strength, dexterity, constitution,
+        hp, mana, moves);
+        //push player into vector
+        players.push_back(a_player);
+        //troubleshooting
+        std::cout << a_player.username << std::endl;            
+        //TODO move this code for accessing players!
+        for(auto it = players.begin(); it != players.end(); ++it)
+        { 
+            if(it->id == 2)
+            {
+                std::cout << it->username << std::endl;
+            }
+        }
+        std::cout << i << std::endl;
+        std::cout << "end of class" << std::endl;
+            
+    }while(i < (this->tokens.size()));
+    
+    return players;
+}
+
 std::vector<item::item> io::ascii_item_loader::create_item()
 {
     std::cout << "create_item()?!!!!!!" << std::endl;
-    unsigned int item_length = 5;
-    
-    //for(unsigned int i=-1; i > this->tokens.size(); ++i)
-    
-    //{
-        //using postincrement in order to keep indexes unsigned
-        unsigned int i = 0;
-        std::cout << i << std::endl;   
+    unsigned int i = 0;
+    std::cout << i << std::endl;   
+    std::cout << this->tokens.size() << std::endl;   
+    //create vector to store all items
+    std::vector<item::item> items;
+    do 
+    {
+        int id = std::stoi(this->tokens[i++], nullptr);
+        std::cout << id << std::endl;
 
-        std::cout << this->tokens.size() << std::endl;   
-        //create vector to store all items
-        std::vector<item::item> items;
-        do 
-        {
-           std::string::size_type sz;
-            //std::cout << "first class" << std::endl;
-            //item::item tokens[i+1](std::stoi(tokens[++i]), tokens[++i],
-            //tokens[++i], tokens[++i], (std::stoi(tokens[++i]), 0, 0);
+        std::string loc = this->tokens[i++];
+        item::wear_location worn_loc = item::get_wear_location(loc);
             
-            int id = std::stoi(this->tokens[i++], nullptr);
-            std::cout << id << std::endl;
-            std::string loc = this->tokens[i++];
-            //item::wear_location worn_loc = item::wear_location{loc};
-            item::wear_location worn_loc = item::get_wear_location(loc);
-            //std::cout << worn_loc << std::endl;
-            std::string name = this->tokens[i++];
-            std::cout << name << std::endl;
-            std::string description = this->tokens[i++];
-            std::cout << description << std::endl;
-            int price = std::stoi(this->tokens[i++], nullptr);
-            std::cout << price << std::endl;
-            //std::cout << this->tokens[++i] << std::endl;
-            item::item_type type = item::item_type(1);
-            item::item an_item(id, worn_loc, name, description, price, type, 0);
-            items.push_back(an_item);
-            //model::m.push_back(an_item);
-            //troubleshooting
-            std::cout << an_item.description << std::endl;            
-            //TODO move this code for accessing items!
-            for(auto it = items.begin(); it != items.end(); ++it)
-            { 
-                if(it->id == 9)
-                {
-                    std::cout << it->description << std::endl;
-                }
+        std::string name = this->tokens[i++];
+        std::cout << name << std::endl;
+            
+        std::string description = this->tokens[i++];
+        std::cout << description << std::endl;
+            
+        int price = std::stoi(this->tokens[i++], nullptr);
+        std::cout << price << std::endl;
+            
+        item::item_type type = item::get_item_type(worn_loc);
+        //create item
+        item::item an_item(id, worn_loc, name, description, price, type, 0);
+        //push item into vector
+        items.push_back(an_item);
+        //troubleshooting
+        std::cout << an_item.description << std::endl;            
+        //TODO move this code for accessing items!
+        for(auto it = items.begin(); it != items.end(); ++it)
+        { 
+            if(it->id == 9)
+            {
+                std::cout << it->description << std::endl;
             }
-            std::cout << i << std::endl;
-
-            std::cout << "end of class" << std::endl;
-            
-       } while(i < (this->tokens.size()));
-    //}
-   /* for(int i = items.start; i = items.end; ++i)
-    { 
-        if(items[i].id == 9)
-        {
-            std::cout items[i].description << std::endl;
         }
-    }*/
+        std::cout << i << std::endl;
+        std::cout << "end of class" << std::endl;
+            
+    }while(i < (this->tokens.size()));
+    
     return items;
 }
 

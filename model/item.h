@@ -58,5 +58,6 @@ namespace model
          //       std::string get_wear_location(item::wear_location wear_loc)
         };
         wear_location get_wear_location(std::string loc);
+        item_type get_item_type(wear_location loc);
     }
 }

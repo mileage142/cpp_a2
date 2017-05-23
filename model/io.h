@@ -56,11 +56,10 @@ namespace model
             public:
             //constructor
             ascii_player_loader() : player_temp(nullptr) {}
-            ~ascii_player_loader();
+            ~ascii_player_loader(){}
             //returns a list of pointers to player that can be added in model
-            std::list<std::unique_ptr<character::player>> load(std::string player_file);
-            std::vector<std::string> load_file(std::string file);
-            bool validate();
+            //std::list<std::unique_ptr<character::player>> load(std::string player_file);
+            std::vector<character::player> create_player(void);
         };
        
         class ascii_area_loader : public ascii_loader
@@ -68,30 +67,27 @@ namespace model
             private:
                 game_location::area* area_temp;
             public:
-            bool load();
-            bool validate();
             ascii_area_loader() : area_temp(nullptr) {}
-            std::vector<std::unique_ptr<game_location::area>> load(std::string area_file); 
+            ~ascii_area_loader(){}
+            std::vector<game_location::area> create_area(void); 
         };
         class ascii_room_loader : public ascii_loader
         {
             private:
                 game_location::room* room_temp;
             public:
-            bool load();
-            bool validate();
             ascii_room_loader() : room_temp(nullptr) {}
-            std::list<std::unique_ptr<game_location::room>> load(std::string room_file); 
+            ~ascii_room_loader(){}
+            std::vector<game_location::room> create_room(void);
         };
         class ascii_shop_loader : public ascii_loader
         {
             private:
                 character::shopkeeper* shop_temp;
             public:
-            bool load();
-            bool validate();
             ascii_shop_loader() : shop_temp(nullptr) {}
-            std::list<std::unique_ptr<character::shopkeeper>> load(std::string shop_file);
+            ~ascii_shop_loader(){}
+            std::vector<character::shopkeeper> create_shopkeeper(void);
         };
         class ascii_item_loader : public ascii_loader
         {
