@@ -71,11 +71,11 @@ namespace model
                 int id;
                 std::string name;
                 //TODO all stl_containers set at std::vector to
-                //start with
+                std::string description;
                 std::vector<connection> entrances;
                 std::vector<connection> exits;
                 std::vector<std::unique_ptr<room>> rooms;
-                std::string description;
+                
             public:
                 area(void): id(), name(), entrances(), exits(), rooms(),
                 description(){}

@@ -17,7 +17,7 @@ int main(int argv, char** argc)
     io::ascii_item_loader item_loader;
     item_loader.load_file("data/items.txt");
     item_loader.create_item();
-    model::model m;
+    std::unique_ptr<model::model> m = make_unique<model::model>();
 
     m.ascii_load();
     //TODO take out function for checking load!
@@ -57,7 +57,7 @@ bool model::model::ascii_load (void)
     io::ascii_item_loader item_loader;
     item_loader.load_file("data/items.txt");
     this->items = item_loader.create_item();
-    /*TODO these will load the other bits into model
+    TODO these will load the other bits into model
     io::ascii_player_loader player_loader;
     player_loader.load_file("data/players.txt");
     this->players = player_loader.create_player();
@@ -65,9 +65,9 @@ bool model::model::ascii_load (void)
     area_loader.load_file("data/areas.txt")
     this->areas = area_loader.create_area();
     io::ascii_shop_loader shop_loader;
-    shop_loader.load_file("data/shopkeepers.txt")
+    /*shop_loader.load_file("data/shopkeepers.txt")
     this->shopkeepers = shop_loader.create_shopkeeper();
-    */
+   */
     
     for(auto it = items.begin(); it != items.end(); ++it)
         { 
@@ -117,7 +117,7 @@ model::game_location::area& model::model::get_area (unsigned int id)
 {
     for(unsigned int i = 0 ;i == areas.size(); ++i)
     {    
-        if(i == id)
+        if(id == model::areas->id)
         {
             return areas[i];
         }
@@ -128,6 +128,25 @@ model::game_location::area& model::model::get_area (unsigned int id)
         }
     }
 }
+
+model::game_location::room& model::model::get_room (unsigned int id)
+
+{
+    for(unsigned int i = 0 ;i == areas.size(); ++i)
+    {    
+        for(unsigned int j = 0; j == areas.rooms.size(); ++j)
+        if(id == model::area.rooms->g_room_no)
+        {
+            return areas.rooms[j];
+        }
+        else
+        {    
+        //TODO execption!
+        return areas[id];
+        }
+    }
+}
+
 /*
 model::game_location::room& model::model::get_room (int id)
 {

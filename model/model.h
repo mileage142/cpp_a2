@@ -52,6 +52,7 @@ namespace model
             character::shopkeeper& get_shop_keeper (unsigned int id);
             item::item& get_item (unsigned int id);
             friend class ascii_loader;
+            friend class ascii_player_loader;
 
     };
 }

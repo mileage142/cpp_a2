@@ -78,8 +78,18 @@ namespace model
             public:
             ascii_room_loader() : room_temp(nullptr) {}
             ~ascii_room_loader(){}
-            std::vector<game_location::room> create_room(void);
+            std::vector<std::unique_ptr<game_location::room>> create_room(void);
         };
+         class ascii_connection_loader : public ascii_loader
+        {
+            private:
+            game_location::connection* connection_temp;
+            public:
+            ascii_connection_loader() : connection_temp(nullptr) {}
+            ~ascii_connection_loader(){}
+            std::vector<game_location::connection> create_connection(void);
+        };
+
         class ascii_shop_loader : public ascii_loader
         {
             private:
