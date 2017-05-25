@@ -58,6 +58,7 @@ bool io::ascii_loader::load_file(std::string in_file)
 
 std::vector<character::player> io::ascii_player_loader::create_player()
 {
+    model * m = model::get_instance();
     std::cout << "create_player()?!!!!!!" << std::endl;
     unsigned int i = 0;
     std::cout << i << std::endl;   
@@ -76,31 +77,33 @@ std::vector<character::player> io::ascii_player_loader::create_player()
         std::cout << password << std::endl;
         //3 room id for game_location::room
         //TODO build function get_room
-        game_location::room* location = model::m.get_room(std::stoi(this->tokens[i++]));
+        game_location::room* location = m->get_room(std::stoi(this->tokens[i++]));
         //4-12 wear slots 1-9
         //TODO create pointer to model::items to make this work
         std::array<item::item*, character::player::NUM_WEAR_SLOTS> equipment
         {   
-            m->items.id(std::stoi(this->tokens[i++])), 
-            model->items.id(std::stoi(this->tokens[i++])),
-            model->items.id(std::stoi(this->tokens[i++])),
-            model->items.id(std::stoi(this->tokens[i++])),
-            model->items.id(std::stoi(this->tokens[i++])),
-            model->items.id(std::stoi(this->tokens[i++])),
-            model->items.id(std::stoi(this->tokens[i++])),
-            model->items.id(std::stoi(this->tokens[i++])),
-            model->items.id(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++])), 
+            m->get_item(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++])),
+            m->get_item(std::stoi(this->tokens[i++]))
         };
         //13 # of items in inventory
         if(std::stoi(this->tokens[i++]) == 0)
         {
-            std::vector<item::item*, 0> inventory{}
+            std::vector<item::item*> inventory;
         }
         //this else would be different if inventory carryig implemented
         else
         {
-            std::vector<item::item*, 0> inventory{}
+            std::vector<item::item*> inventory;
         }
+        //only here because the if loop not recognised
+        std::vector<item::item*> inventory;
         //14 # of GP
         int gp = std::stoi(this->tokens[i++], nullptr);
         //15 Intelligence
@@ -121,9 +124,9 @@ std::vector<character::player> io::ascii_player_loader::create_player()
         int moves = std::stoi(this->tokens[i++], nullptr);
             
         //create player
-        character::player a_player(id, username, password, location, equipment,
-        inventory, gp, intelligence, wisdom, strength, dexterity, constitution,
-        hp, mana, moves);
+        character::player a_player(id, username, password, intelligence, wisdom, 
+        strength, dexterity, constitution, hp, mana, moves, location, equipment, 
+        inventory, gp);
         //push player into vector
         players.push_back(a_player);
         //troubleshooting
@@ -145,7 +148,8 @@ std::vector<character::player> io::ascii_player_loader::create_player()
 }
 
 std::vector<game_location::area> io::ascii_area_loader::create_area()
-{
+{ 
+    model * m = model::get_instance();
     std::cout << "create_area()?!!!!!!" << std::endl;
     unsigned int i = 0;
     std::cout << i << std::endl;   
@@ -161,14 +165,14 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
         std::string description = this->tokens[i++];
         std::vector<game_location::connection> entrances;
         std::vector<game_location::connection> exits;
-        std::vector<std::unique_ptr<room>> rooms;
+        std::vector<game_location::room*> rooms;
         game_location::area an_area(id, name, description, entrances, exits,
         rooms);
 
         //push area into vector
         areas.push_back(an_area);
         //troubleshooting
-        std::cout << an_area.description << std::endl;            
+        //std::cout << an_area.description << std::endl;            
        
         std::cout << i << std::endl;
         std::cout << "end of class" << std::endl;
@@ -177,7 +181,7 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
     //build the rooms and put them into the rooms variable   
     io::ascii_room_loader room_loader;
     room_loader.load_file("data/rooms.txt");
-    game_location::area->rooms = room_loader.create_room();
+    m->areas.rooms = room_loader.create_room();
     
     //build connections and populate to rooms and area
 
@@ -187,6 +191,7 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
 
 std::vector<std::unique_ptr<game_location::room>> io::ascii_room_loader::create_room()
 {
+    model * m = model::get_instance();
     std::cout << "create_room()?!!!!!!" << std::endl;
     unsigned int i = 0;
     std::cout << i << std::endl;   
@@ -203,31 +208,32 @@ std::vector<std::unique_ptr<game_location::room>> io::ascii_room_loader::create_
         
         //TODO
 
-        //area = game_location::get_area(std::stoi(this->tokens[i++], nullptr)
         //returns pointer to area
+        game_location::area* area = m->get_area(std::stoi(this->tokens[i++], nullptr))
 
         std::string name = this->tokens[i++];
         std::string description = this->tokens[i++];
 
         std::array<game_location::room*, 4> exits { };
       
-        game_location::room a_room(g_room_no, l_room_no, name, description, exits);
+        game_location::room a_room(g_room_no, l_room_no, area, name, description, exits);
 
         //push room into vector
         rooms.push_back(a_room);
         //troubleshooting
-        std::cout << a_room.description << std::endl;            
+        //std::cout << a_room.description << std::endl;            
         //TODO move this code for accessing rooms!
         std::cout << i << std::endl;
         std::cout << "end of class" << std::endl;
             
     }while(i < (this->tokens.size()));
-    std::unique_ptr<rooms> p_rooms = std::make_unique<rooms>();    
-    return p_rooms;
+    //std::unique_ptr<rooms> p_rooms = std::make_unique<rooms>();    
+    return rooms;
 }
 
 std::vector<game_location::connection> io::ascii_connection_loader::create_connection()
 {
+    model * m = model::get_instance();
     std::cout << "create_connection()?!!!!!!" << std::endl;
     unsigned int i = 0;
     std::cout << i << std::endl;   
@@ -236,11 +242,12 @@ std::vector<game_location::connection> io::ascii_connection_loader::create_conne
     std::vector<game_location::connection> connections;
     do 
     {
-        game_location::room* start_room = game_location::get_room(std::stoi(->tokens[i++], nullptr));
+        game_location::room* start_room = m->get_room(std::stoi(->tokens[i++], nullptr));
 
-        game_location::room* end_room = game_location::get_room(std::stoi(this->tokens[i++], nullptr));
+        game_location::room* end_room = m->get_room(std::stoi(this->tokens[i++], nullptr));
        
         std::string dir = this->tokens[i++];
+        //TODO write enum cast for direction
         game_location::direction = game_location::get_direction(dir);
 
         

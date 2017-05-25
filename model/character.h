@@ -99,6 +99,8 @@ namespace model
                 model::game_location::room *  location = nullptr;
                 //TODO equipment converted from [] to std::array for compilation
                 //not really that urgent
+                //TODO see if there are flow on problems for this array
+                //not being of item::item*
                 std::array<item::item*, NUM_WEAR_SLOTS> equipment;
                 std::vector<model::item::item*> inventory;
                 int gold_pieces = 0;

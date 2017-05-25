@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <array>
 //for login manager
 #include <map>
 
@@ -50,10 +51,17 @@ namespace model
                 area * myarea;
                 std::string name;
                 std::string description;
-                std::unique_ptr<room> exits[NUM_DIRECTIONS];
+                std::array<room*, NUM_DIRECTIONS> exits;
             public:
                 room(void): g_room_no(), l_room_no(), myarea(), name(),
                 description(), exits(){}
+                room(int _g_room_no, int _l_room_no, area* _myarea, 
+                std::string _name, std::string _description, 
+                std::array<room*, NUM_DIRECTIONS> _exits):
+                g_room_no(_g_room_no), l_room_no(_l_room_no), 
+                myarea(_myarea), name(_name), description(_description),
+                exits(_exits){}
+
         };
         
         struct connection 
@@ -74,11 +82,16 @@ namespace model
                 std::string description;
                 std::vector<connection> entrances;
                 std::vector<connection> exits;
-                std::vector<std::unique_ptr<room>> rooms;
+                std::vector<room*> rooms;
                 
             public:
-                area(void): id(), name(), entrances(), exits(), rooms(),
-                description(){}
+                area(void): id(), name(), description(), entrances(), exits(), 
+                rooms(){}
+                area(int _id, std::string _name, std::string _description, 
+                std::vector<connection> _entrances, std::vector<connection> 
+                _exits, std::vector<room*> _rooms): id(_id), 
+                name(_name), description(_description), entrances(_entrances), 
+                exits(_exits), rooms(_rooms){}
         };
 
         
