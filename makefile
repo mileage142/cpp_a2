@@ -5,12 +5,12 @@
 #
 #
 #
-all: model.o view.o controller.o
+all: modell.o view.o controller.o
 		g++ -o game modell.o view.o controller.o -g
 
 #Model
 
-modell:  character.o game_location.o item.o io.o model.o login_manager.o 
+modell.o:  character.o game_location.o item.o io.o model.o login_manager.o 
 		g++ -o modell.o character.o game_location.o item.o io.o model.o login_manager.o -g
 
 game_location.o: model/game_location.cpp model/game_location.h

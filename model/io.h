@@ -70,6 +70,8 @@ namespace model
             ascii_area_loader() : area_temp(nullptr) {}
             ~ascii_area_loader(){}
             std::vector<game_location::area> create_area(void); 
+            friend class game_location;
+            friend class model;
         };
         class ascii_room_loader : public ascii_loader
         {
@@ -78,7 +80,7 @@ namespace model
             public:
             ascii_room_loader() : room_temp(nullptr) {}
             ~ascii_room_loader(){}
-            std::vector<std::unique_ptr<game_location::room>> create_room(void);
+            std::vector<game_location::room> create_room(void);
         };
          class ascii_connection_loader : public ascii_loader
         {

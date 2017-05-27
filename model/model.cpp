@@ -9,7 +9,7 @@
 
 //using namespace model::model;
 //redefining singleton function for model
-std::unique_ptr<model> model::instance = nullptr;
+std::unique_ptr<model::model> instance = nullptr;
 //dummy main for testing
 int main(int argv, char** argc)
 //this main will become model::ascii_load
@@ -18,12 +18,12 @@ int main(int argv, char** argc)
     io::ascii_item_loader item_loader;
     item_loader.load_file("data/items.txt");
     item_loader.create_item();
-    model * m = model::get_instance();
+    model::model * m = model::model::get_instance();
     //std::unique_ptr<model::model> m = make_unique<model::model>();
 
-    m.ascii_load();
+    m->ascii_load();
     //TODO take out function for checking load!
-      for(auto it = m.items.begin(); it != m.items.end(); ++it)
+      for(auto it = m->items.begin(); it != m->items.end(); ++it)
         { 
             if(it->id == 9)
             {
@@ -35,7 +35,16 @@ int main(int argv, char** argc)
    // player_loader.load_file("data/players.txt");
     std::cout << "end of main" << std::endl;
 }
-
+/* 
+static model::model* get_instance(void)
+{
+    if(instance == nullptr)
+    {
+        instance = std::unique_ptr<model::model>(new model::model());
+    }
+    return instance.get();
+}
+*/
 
 bool binary_save (const std::string& name)
 {
@@ -59,12 +68,12 @@ bool model::model::ascii_load (void)
     io::ascii_item_loader item_loader;
     item_loader.load_file("data/items.txt");
     this->items = item_loader.create_item();
-    TODO these will load the other bits into model
+    //TODO these will load the other bits into model
     io::ascii_player_loader player_loader;
     player_loader.load_file("data/players.txt");
     this->players = player_loader.create_player();
     io::ascii_area_loader area_loader;
-    area_loader.load_file("data/areas.txt")
+    area_loader.load_file("data/areas.txt");
     this->areas = area_loader.create_area();
     io::ascii_shop_loader shop_loader;
     /*shop_loader.load_file("data/shopkeepers.txt")
@@ -114,37 +123,39 @@ model::character::player& model::model::get_player (unsigned int id)
         }
     }
 }
-model::game_location::area* model::model::get_area (unsigned int id)
+model::game_location::area* model::model::get_area (int id)
 
-{
-    for(unsigned int i = 0 ;i == areas.size(); ++i)
-    {    
-        if(id == model::areas->id)
+{ 
+    for(auto i=areas.begin();i!=areas.end(); ++i)
+    {
+        if(id == i->id)
         {
-            return areas[i]*;
+            return &(*i);
         }
         else
-        {    
-        //TODO execption!
-        return areas[id]*;
+        {
+            //TODO dummy untill exceptions 
+            return &(*i);
         }
     }
-}
+}    
 
-model::game_location::room* model::model::get_room (unsigned int id)
+model::game_location::room* model::model::get_room (int id)
 
 {
-    for(unsigned int i = 0 ;i == areas.size(); ++i)
+    for(auto i=areas.begin();i!=areas.end(); ++i)
     {    
-        for(unsigned int j = 0; j == areas.rooms.size(); ++j)
-        if(id == model::area.rooms->g_room_no)
+        for(auto j=*i->rooms.begin(); j!=*i->rooms.end(); ++j)
         {
-            return areas.rooms[j]*;
-        }
-        else
-        {    
-        //TODO execption!
-        return areas[id];
+            if(id == j->g_room_no)
+            {
+                return &(*j);
+            }
+            else
+            {    
+                //TODO execption!
+                return &(*j);
+            }
         }
     }
 }
@@ -173,18 +184,32 @@ model::character::shopkeeper& model::model::get_shop_keeper (unsigned int id)
         }
     }
 }
-model::item::item* model::model::get_item (unsigned int id)
+model::item::item* model::model::get_item (int id)
 {
-    for(unsigned int i =0; i == items.size(); ++i)
+    for(auto i=model::items.begin(); i!=model::items.end(); ++i)
+    {
+        if(i->id == id)
+        {
+            return &(*i);
+        }
+        else
+        {
+            return nullptr;
+        }
+        //TODO exeption
+    }
+
+
+    /*for(unsigned int i =0; i == items.size(); ++i)
     {
         if(i == id)
         {
-            return items[i]*;
+            return items[i];
         }
         else        
         {
         //TODO exeptions!!!
             return items[id];
         }
-    } 
+    }*/ 
 }

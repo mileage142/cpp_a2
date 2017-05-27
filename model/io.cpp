@@ -149,7 +149,7 @@ std::vector<character::player> io::ascii_player_loader::create_player()
 
 std::vector<game_location::area> io::ascii_area_loader::create_area()
 { 
-    model * m = model::get_instance();
+    //model * m = model::get_instance();
     std::cout << "create_area()?!!!!!!" << std::endl;
     unsigned int i = 0;
     std::cout << i << std::endl;   
@@ -181,7 +181,21 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
     //build the rooms and put them into the rooms variable   
     io::ascii_room_loader room_loader;
     room_loader.load_file("data/rooms.txt");
-    m->areas.rooms = room_loader.create_room();
+    auto temp_room = room_loader.create_room();
+    for(auto tr = temp_room.begin(); tr!=temp_room.end(); ++tr)
+    {
+        for(auto a=areas.begin(); a!=areas.end(); ++a)
+        {
+            if(tr->myarea->id == a->id)
+            {
+                //game_location::room* room = &(*tr);
+                a->rooms.push_back(&(*tr));
+            }
+
+        }
+    }
+   
+   //m->areas.rooms = room_loader.create_room();
     
     //build connections and populate to rooms and area
 
@@ -189,7 +203,7 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
     return areas;
 }
 
-std::vector<std::unique_ptr<game_location::room>> io::ascii_room_loader::create_room()
+std::vector<game_location::room> io::ascii_room_loader::create_room()
 {
     model * m = model::get_instance();
     std::cout << "create_room()?!!!!!!" << std::endl;
@@ -209,7 +223,7 @@ std::vector<std::unique_ptr<game_location::room>> io::ascii_room_loader::create_
         //TODO
 
         //returns pointer to area
-        game_location::area* area = m->get_area(std::stoi(this->tokens[i++], nullptr))
+        game_location::area* area = m->get_area(std::stoi(this->tokens[i++], nullptr));
 
         std::string name = this->tokens[i++];
         std::string description = this->tokens[i++];
@@ -242,13 +256,13 @@ std::vector<game_location::connection> io::ascii_connection_loader::create_conne
     std::vector<game_location::connection> connections;
     do 
     {
-        game_location::room* start_room = m->get_room(std::stoi(->tokens[i++], nullptr));
+        game_location::room* start_room = m->get_room(std::stoi(this->tokens[i++], nullptr));
 
         game_location::room* end_room = m->get_room(std::stoi(this->tokens[i++], nullptr));
        
         std::string dir = this->tokens[i++];
         //TODO write enum cast for direction
-        game_location::direction = game_location::get_direction(dir);
+        game_location::direction direction = game_location::get_direction(dir);
 
         
 
