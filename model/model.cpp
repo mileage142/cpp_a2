@@ -9,7 +9,7 @@
 
 //using namespace model::model;
 //redefining singleton function for model
-std::unique_ptr<model::model> instance = nullptr;
+//std::unique_ptr<model::model> instance = nullptr;
 //dummy main for testing
 int main(int argv, char** argc)
 //this main will become model::ascii_load

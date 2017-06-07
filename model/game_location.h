@@ -48,19 +48,21 @@ namespace model
                 static const int NUM_DIRECTIONS = 4; 
                 int g_room_no;
                 int l_room_no;
+                //new var to facilitate loading rooms and areas
+                int area_id;
                 area * myarea;
                 std::string name;
                 std::string description;
                 std::array<room*, NUM_DIRECTIONS> exits;
             public:
-                room(void): g_room_no(), l_room_no(), myarea(), name(),
-                description(), exits(){}
-                room(int _g_room_no, int _l_room_no, area* _myarea, 
-                std::string _name, std::string _description, 
+                room(void): g_room_no(), l_room_no(), area_id(), myarea(), 
+                name(), description(), exits(){}
+                room(int _g_room_no, int _l_room_no, int _area_id, 
+                area* _myarea, std::string _name, std::string _description, 
                 std::array<room*, NUM_DIRECTIONS> _exits):
                 g_room_no(_g_room_no), l_room_no(_l_room_no), 
-                myarea(_myarea), name(_name), description(_description),
-                exits(_exits){}
+                area_id(_area_id), myarea(_myarea), name(_name), 
+                description(_description), exits(_exits){}
 
         };
         

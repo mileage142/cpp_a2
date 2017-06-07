@@ -10,8 +10,8 @@ all: modell.o view.o controller.o
 
 #Model
 
-modell.o:  character.o game_location.o item.o io.o model.o login_manager.o 
-		g++ -o modell.o character.o game_location.o item.o io.o model.o login_manager.o -g
+modell:  character.o game_location.o item.o io.o model.o login_manager.o 
+		g++ -o modell character.o game_location.o item.o io.o model.o login_manager.o -g 
 
 game_location.o: model/game_location.cpp model/game_location.h
 		g++ -c -Wall -pedantic -std=c++14 model/game_location.cpp

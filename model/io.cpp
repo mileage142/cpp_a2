@@ -8,6 +8,8 @@
 #include "io.h"
 using namespace model;
 
+std::unique_ptr<model::model> model::model::instance = nullptr;
+
 bool io::ascii_loader::load_file(std::string in_file)
 {
     //std::vector<std::string> lines;
@@ -72,17 +74,39 @@ std::vector<character::player> io::ascii_player_loader::create_player()
         std::cout << id << std::endl;
         //1
         std::string username = this->tokens[i++];
+
+        std::cout << "username loaded" << std::endl;
         //2    
-        int password = std::stoi(this->tokens[i++], nullptr);
+        long password = std::stol(this->tokens[i++], nullptr);
         std::cout << password << std::endl;
+        
+        std::cout << "password loaded" << std::endl;
         //3 room id for game_location::room
         //TODO build function get_room
         game_location::room* location = m->get_room(std::stoi(this->tokens[i++]));
+        std::cout << "room loaded" << std::endl;
         //4-12 wear slots 1-9
         //TODO create pointer to model::items to make this work
         std::array<item::item*, character::player::NUM_WEAR_SLOTS> equipment
-        {   
-            m->get_item(std::stoi(this->tokens[i++])), 
+        {};   
+        std::cout << "load equip" << std::endl;
+            //TODO need to make loop for this, ignore null
+        for(int j=0; j<9; ++j)
+        {
+            std::string temp_equip = this->tokens[i++];
+            int temp_int = -1;
+            if(temp_equip == "NULL")
+            {
+                equipment[j] = m->get_item(temp_int); 
+            } 
+            else
+            {
+            equipment[j] = m->get_item(std::stoi(temp_equip)); 
+            }
+            std::cout << temp_equip << std::endl;
+            std::cout << "temp_equip" << std::endl;
+        }
+            /*
             m->get_item(std::stoi(this->tokens[i++])),
             m->get_item(std::stoi(this->tokens[i++])),
             m->get_item(std::stoi(this->tokens[i++])),
@@ -91,8 +115,10 @@ std::vector<character::player> io::ascii_player_loader::create_player()
             m->get_item(std::stoi(this->tokens[i++])),
             m->get_item(std::stoi(this->tokens[i++])),
             m->get_item(std::stoi(this->tokens[i++]))
-        };
+            */        
+        std::cout << "equipment loaded" << std::endl;
         //13 # of items in inventory
+
         if(std::stoi(this->tokens[i++]) == 0)
         {
             std::vector<item::item*> inventory;
@@ -106,6 +132,7 @@ std::vector<character::player> io::ascii_player_loader::create_player()
         std::vector<item::item*> inventory;
         //14 # of GP
         int gp = std::stoi(this->tokens[i++], nullptr);
+        std::cout << "gp" << std::endl;
         //15 Intelligence
         int intelligence = std::stoi(this->tokens[i++], nullptr);
         //16 Wisdom
@@ -132,6 +159,7 @@ std::vector<character::player> io::ascii_player_loader::create_player()
         //troubleshooting
         std::cout << a_player.username << std::endl;            
         //TODO move this code for accessing players!
+        std::cout << "player loaded" << std::endl;
         for(auto it = players.begin(); it != players.end(); ++it)
         { 
             if(it->id == 2)
@@ -158,11 +186,14 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
     std::vector<game_location::area> areas;
     do 
     {
+        std::cout << "start area" << std::endl;
+
         int id = std::stoi(this->tokens[i++], nullptr);
         std::cout << id << std::endl;
 
         std::string name = this->tokens[i++];
         std::string description = this->tokens[i++];
+        std::cout << description << std::endl;
         std::vector<game_location::connection> entrances;
         std::vector<game_location::connection> exits;
         std::vector<game_location::room*> rooms;
@@ -176,18 +207,26 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
        
         std::cout << i << std::endl;
         std::cout << "end of class" << std::endl;
-            
     }while(i < (this->tokens.size()));
     //build the rooms and put them into the rooms variable   
     io::ascii_room_loader room_loader;
     room_loader.load_file("data/rooms.txt");
     auto temp_room = room_loader.create_room();
+    std::cout << "rooms loaded" << std::endl;
     for(auto tr = temp_room.begin(); tr!=temp_room.end(); ++tr)
     {
         for(auto a=areas.begin(); a!=areas.end(); ++a)
         {
-            if(tr->myarea->id == a->id)
+            std::cout << temp_room[5].g_room_no << std::endl;
+            std::cout << a->id << std::endl;
+            //THIS IS THE ISSUE!!!
+            //circular reference, need to give temp room an int in building
+            //then turn it into an area later.
+            std::cout << tr->area_id << std::endl;
+            if(tr->area_id == a->id)
             {
+                std::cout << temp_room[1].g_room_no << std::endl;
+                std::cout << tr->area_id << std::endl;
                 //game_location::room* room = &(*tr);
                 a->rooms.push_back(&(*tr));
             }
@@ -214,23 +253,24 @@ std::vector<game_location::room> io::ascii_room_loader::create_room()
     std::vector<game_location::room> rooms;
     do 
     {
-        //local id not stored
         int g_room_no = std::stoi(this->tokens[i++], nullptr);
         //global id
         int l_room_no = std::stoi(this->tokens[i++], nullptr);
-       
         
-        //TODO
-
+        int area_id = std::stoi(this->tokens[i++], nullptr);
+        
+        //this has been replaced with getting an area_id int. 
         //returns pointer to area
-        game_location::area* area = m->get_area(std::stoi(this->tokens[i++], nullptr));
+        //game_location::area* area = m->get_area(std::stoi(this->tokens[i++], nullptr));
+        game_location::area* area = nullptr;
 
         std::string name = this->tokens[i++];
         std::string description = this->tokens[i++];
+        std::cout << description << std::endl;
 
         std::array<game_location::room*, 4> exits { };
       
-        game_location::room a_room(g_room_no, l_room_no, area, name, description, exits);
+        game_location::room a_room(g_room_no, l_room_no, area_id, area, name, description, exits);
 
         //push room into vector
         rooms.push_back(a_room);
@@ -238,10 +278,12 @@ std::vector<game_location::room> io::ascii_room_loader::create_room()
         //std::cout << a_room.description << std::endl;            
         //TODO move this code for accessing rooms!
         std::cout << i << std::endl;
-        std::cout << "end of class" << std::endl;
+        std::cout << this->tokens.size() << std::endl;
+        std::cout << "end of room" << std::endl;
             
     }while(i < (this->tokens.size()));
     //std::unique_ptr<rooms> p_rooms = std::make_unique<rooms>();    
+    std::cout << "out of room loop" << std::endl;
     return rooms;
 }
 
@@ -273,7 +315,7 @@ std::vector<game_location::connection> io::ascii_connection_loader::create_conne
         connections.push_back(a_connection);
         //troubleshooting
         std::cout << i << std::endl;
-        std::cout << "end of class" << std::endl;
+        std::cout << "end of connection" << std::endl;
             
     }while(i < (this->tokens.size()));
     
@@ -321,7 +363,7 @@ std::vector<item::item> io::ascii_item_loader::create_item()
             }
         }
         std::cout << i << std::endl;
-        std::cout << "end of class" << std::endl;
+        std::cout << "end of item" << std::endl;
             
     }while(i < (this->tokens.size()));
     
