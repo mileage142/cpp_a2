@@ -52,4 +52,4 @@ controller.o: controller/controller.cpp controller/controller.h
 		g++ -c -Wall -pedandtic -std=c++14 controller/controller.cpp
 
 clean:
-		rm -rf *.o test_datastructures *out.txt
+		rm -rf *.o modell *out.txt

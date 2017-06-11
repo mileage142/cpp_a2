@@ -1,5 +1,5 @@
 /******************************************************************************
- * io.h             CPT323  Assingment 2            Miles Thomas    s3494949
+ * io.cpp             CPT323  Assingment 2            Miles Thomas    s3494949
  *
  *
  *
@@ -42,7 +42,7 @@ bool io::ascii_loader::load_file(std::string in_file)
             {
 
                 std::cout << "tokenising" << std::endl;
-                //TODO may need to make custom seperator
+                //custom seperator just tabs
                 boost::char_separator<char> delim("\t");
                 boost::tokenizer<boost::char_separator<char>> tok(line, delim);
                 for(boost::tokenizer<boost::char_separator<char>>::iterator 
@@ -53,9 +53,8 @@ bool io::ascii_loader::load_file(std::string in_file)
                 }   
             }
         }
-        
-
     }
+    return true;
 }
 
 std::vector<character::player> io::ascii_player_loader::create_player()
@@ -244,7 +243,7 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
 
 std::vector<game_location::room> io::ascii_room_loader::create_room()
 {
-    model * m = model::get_instance();
+    //model * m = model::get_instance();
     std::cout << "create_room()?!!!!!!" << std::endl;
     unsigned int i = 0;
     std::cout << i << std::endl;   
@@ -263,8 +262,9 @@ std::vector<game_location::room> io::ascii_room_loader::create_room()
         //returns pointer to area
         //game_location::area* area = m->get_area(std::stoi(this->tokens[i++], nullptr));
         game_location::area* area = nullptr;
-
+        
         std::string name = this->tokens[i++];
+        std::cout << name << std::endl;
         std::string description = this->tokens[i++];
         std::cout << description << std::endl;
 

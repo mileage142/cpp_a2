@@ -23,14 +23,31 @@ int main(int argv, char** argc)
 
     m->ascii_load();
     //TODO take out function for checking load!
-      for(auto it = m->items.begin(); it != m->items.end(); ++it)
-        { 
-            if(it->id == 9)
-            {
-                std::cout << it->description << std::endl;
-            }
+    
+    for(auto it = m->items.begin(); it != m->items.end(); ++it)
+    { 
+        std::cout << it->description << std::endl;
+    }
+    for(auto it = m->areas.begin(); it != m->areas.end(); ++it)
+    { 
+        std::cout << it->description << std::endl;
+        //std::cout << it->rooms.begin()->name <<std::endl;
+        for(auto it2 = it->rooms.begin(); it2!=it->rooms.end();++it2)
+        {
+            //std::cout << *it2 <<std::endl;
+            //std::cout << (*it2)->name << std::endl;
         }
-
+    }
+    for(auto it = m->players.begin(); it != m->players.end(); ++it)
+    { 
+        std::cout << it->username << std::endl;
+    }
+    auto temp = (m->get_room(30));
+    std::cout << temp->g_room_no << std::endl;
+    std::cout << temp->l_room_no << std::endl;
+    std::cout << temp->area_id << std::endl;
+    //std::cout << temp->name << std::endl;
+    std::cout << "description " << temp->description << std::endl;
    // io::ascii_loader player_loader;
    // player_loader.load_file("data/players.txt");
     std::cout << "end of main" << std::endl;
@@ -117,11 +134,12 @@ model::character::player& model::model::get_player (unsigned int id)
             return players[i];
         }
        //TODO needs exception handling if no players present
-        else
-        {
-            return players[id];
-        }
+       // else
+        //{
+           // return players[id];
+        //}
     }
+    return players[id];
 }
 model::game_location::area* model::model::get_area (int id)
 
@@ -132,12 +150,8 @@ model::game_location::area* model::model::get_area (int id)
         {
             return &(*i);
         }
-        else
-        {
-            //TODO dummy untill exceptions 
-            return &(*i);
-        }
     }
+    return nullptr;
 }    
 
 model::game_location::room* model::model::get_room (int id)
@@ -147,17 +161,19 @@ model::game_location::room* model::model::get_room (int id)
     {    
         for(auto j=*i->rooms.begin(); j!=*i->rooms.end(); ++j)
         {
+            std::cout << id <<std::endl;
+            std::cout << j->g_room_no << std::endl;
             if(id == j->g_room_no)
             {
-                return &(*j);
-            }
-            else
-            {    
-                //TODO execption!
-                return &(*j);
+                auto room = &(*j);
+               // std::cout << room->name << std::endl;
+               // std::cout << room->description << std::endl;
+                return room;
+
             }
         }
     }
+    return nullptr;
 }
 
 /*
@@ -183,6 +199,7 @@ model::character::shopkeeper& model::model::get_shop_keeper (unsigned int id)
             return shopkeepers[id];
         }
     }
+    return shopkeepers[id];
 }
 model::item::item* model::model::get_item (int id)
 {
@@ -192,13 +209,10 @@ model::item::item* model::model::get_item (int id)
         {
             return &(*i);
         }
-        else
-        {
-            return nullptr;
-        }
         //TODO exeption
     }
 
+    return nullptr;
 
     /*for(unsigned int i =0; i == items.size(); ++i)
     {
