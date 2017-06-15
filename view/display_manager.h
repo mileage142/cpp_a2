@@ -1,15 +1,19 @@
+#pragma once
 #include <string>
 #include <tuple>
 #include <iostream>
+#include <functional>
+#include "../controller/controller.h"
 namespace view {
     /**
      * \brief This would be a good place to put your main function
      */
-    class display_manager {
+    class display_manager 
+    {
         // Attributes
         private :
            //TODO fix attributes commented out for iterative design
-           // controller::command * controller;
+           // controller::controller * controller;
            // model::model * model;
            std::string dummy;
         // Operations
@@ -34,6 +38,7 @@ namespace view {
              * \return std::tuple<std::string,int>
              */
             std::tuple<std::string,int> display_login_details ();
+            //needs a get_login_details fn in controller (which strips out login from  model::get_player)
     };
 }
 

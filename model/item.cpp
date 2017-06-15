@@ -17,7 +17,7 @@ item::wear_location item::get_wear_location(std::string loc)
     std::array<std::string, 10>wear_loc_name{"WRISTS", "ARMS", "HANDS", "LEGS", "FEET",
     "HEAD", "TORSO", "SHIELD", "WIELDED", "NO_LOC"};
     wear_location location = static_cast<wear_location>(9);
-    for(unsigned int i; i < wear_loc_name.size(); ++i)
+    for(unsigned int i=0; i < wear_loc_name.size(); ++i)
     {
         if(wear_loc_name[i] == loc)
         {

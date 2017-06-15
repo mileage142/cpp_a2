@@ -11,7 +11,7 @@
 //redefining singleton function for model
 //std::unique_ptr<model::model> instance = nullptr;
 //dummy main for testing
-int main(int argv, char** argc)
+/*int main(int argv, char** argc)
 //this main will become model::ascii_load
 {
     std::cout << "something" << std::endl;
@@ -26,6 +26,7 @@ int main(int argv, char** argc)
     
     for(auto it = m->items.begin(); it != m->items.end(); ++it)
     { 
+        std::cout << it->name << std::endl;
         std::cout << it->description << std::endl;
     }
     for(auto it = m->areas.begin(); it != m->areas.end(); ++it)
@@ -42,16 +43,17 @@ int main(int argv, char** argc)
     { 
         std::cout << it->username << std::endl;
     }
-    auto temp = (m->get_room(30));
-    std::cout << temp->g_room_no << std::endl;
-    std::cout << temp->l_room_no << std::endl;
-    std::cout << temp->area_id << std::endl;
+    int value = 2;
+    auto temp = (m->get_room(value));
+    //std::cout << temp->g_room_no << std::endl;
+    //std::cout << temp->l_room_no << std::endl;
+    //std::cout << temp->area_id << std::endl;
     //std::cout << temp->name << std::endl;
-    std::cout << "description " << temp->description << std::endl;
+    //std::cout << "description " << temp->description << std::endl;
    // io::ascii_loader player_loader;
    // player_loader.load_file("data/players.txt");
     std::cout << "end of main" << std::endl;
-}
+}*/
 /* 
 static model::model* get_instance(void)
 {
@@ -161,8 +163,10 @@ model::game_location::room* model::model::get_room (int id)
     {    
         for(auto j=*i->rooms.begin(); j!=*i->rooms.end(); ++j)
         {
-            std::cout << id <<std::endl;
-            std::cout << j->g_room_no << std::endl;
+            std::cout << "id: " << id <<std::endl;
+            std::cout << "room no: " << j->g_room_no << std::endl;
+            std::cout << "BAD NAME: " << j->name << std::endl;
+            std::cout << "BAD DESCRIPTOR: " << j->description << std::endl;
             if(id == j->g_room_no)
             {
                 auto room = &(*j);

@@ -263,7 +263,8 @@ std::vector<game_location::room> io::ascii_room_loader::create_room()
         //game_location::area* area = m->get_area(std::stoi(this->tokens[i++], nullptr));
         game_location::area* area = nullptr;
         
-        std::string name = this->tokens[i++];
+        std::string name;
+        name.assign(this->tokens[i++]);
         std::cout << name << std::endl;
         std::string description = this->tokens[i++];
         std::cout << description << std::endl;
@@ -326,26 +327,27 @@ std::vector<item::item> io::ascii_item_loader::create_item()
 {
     std::cout << "create_item()?!!!!!!" << std::endl;
     unsigned int i = 0;
-    std::cout << i << std::endl;   
-    std::cout << this->tokens.size() << std::endl;   
+    //std::cout << i << std::endl;   
+    //std::cout << this->tokens.size() << std::endl;   
     //create vector to store all items
     std::vector<item::item> items;
     do 
     {
         int id = std::stoi(this->tokens[i++], nullptr);
-        std::cout << id << std::endl;
+        //std::cout << id << std::endl;
 
         std::string loc = this->tokens[i++];
         item::wear_location worn_loc = item::get_wear_location(loc);
             
-        std::string name = this->tokens[i++];
+        std::string name; 
+        name.assign(this->tokens[i++]);
         std::cout << name << std::endl;
             
         std::string description = this->tokens[i++];
-        std::cout << description << std::endl;
+        //std::cout << description << std::endl;
             
         int price = std::stoi(this->tokens[i++], nullptr);
-        std::cout << price << std::endl;
+        //std::cout << price << std::endl;
             
         item::item_type type = item::get_item_type(worn_loc);
         //create item
@@ -353,15 +355,15 @@ std::vector<item::item> io::ascii_item_loader::create_item()
         //push item into vector
         items.push_back(an_item);
         //troubleshooting
-        std::cout << an_item.description << std::endl;            
-        //TODO move this code for accessing items!
+        //std::cout << an_item.description << std::endl;            
+        /*TODO move this code for accessing items!
         for(auto it = items.begin(); it != items.end(); ++it)
         { 
             if(it->id == 9)
             {
                 std::cout << it->description << std::endl;
             }
-        }
+        }*/
         std::cout << i << std::endl;
         std::cout << "end of item" << std::endl;
             

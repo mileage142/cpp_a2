@@ -40,7 +40,7 @@ namespace model
                 //std::vector<std::string> tokens;
                 std::vector<std::string> tokens;
             public :
-                ascii_loader(){}
+                ascii_loader(): tokens(){}
                 ~ascii_loader(){}
                 bool load_file(std::string file);
                 bool validate ();
