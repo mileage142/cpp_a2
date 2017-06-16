@@ -14,8 +14,8 @@ namespace controller {
         public:
         //controller(){}
         //virtual ~controller(){}
-        bool login();
-        bool game_loop();
+        bool login(void);
+        bool game_loop(void);
         //get controller singelton instance
         static controller* get_instance(void)
         {

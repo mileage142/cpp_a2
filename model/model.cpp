@@ -9,7 +9,7 @@
 
 //using namespace model::model;
 //redefining singleton function for model
-//std::unique_ptr<model::model> instance = nullptr;
+std::unique_ptr<model::model> model::model::instance = nullptr;
 //dummy main for testing
 /*int main(int argv, char** argc)
 //this main will become model::ascii_load
@@ -98,7 +98,7 @@ bool model::model::ascii_load (void)
     /*shop_loader.load_file("data/shopkeepers.txt")
     this->shopkeepers = shop_loader.create_shopkeeper();
    */
-    
+   /* 
     for(auto it = items.begin(); it != items.end(); ++it)
         { 
             if(it->id == 9)
@@ -106,7 +106,7 @@ bool model::model::ascii_load (void)
                 std::cout << it->description << std::endl;
             }
         }
-   
+   */
    
    // io::ascii_item_loader pl;
    // io::ascii_loader * pl1 = &pl;
@@ -165,8 +165,8 @@ model::game_location::room* model::model::get_room (int id)
         {
             std::cout << "id: " << id <<std::endl;
             std::cout << "room no: " << j->g_room_no << std::endl;
-            std::cout << "BAD NAME: " << j->name << std::endl;
-            std::cout << "BAD DESCRIPTOR: " << j->description << std::endl;
+            //std::cout << "BAD NAME: " << j->name << std::endl;
+            //std::cout << "BAD DESCRIPTOR: " << j->description << std::endl;
             if(id == j->g_room_no)
             {
                 auto room = &(*j);

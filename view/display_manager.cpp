@@ -58,7 +58,7 @@ void display_welcome_screen()
 {
     
     controller::controller* c = controller::controller::get_instance(); 
-    while(c->login() == false)
+    /*while(c->login() == false)
     {
         std::cout << "Error: invalid password entered.  Please try again" 
         << std::endl;
@@ -66,6 +66,7 @@ void display_welcome_screen()
         
     std::cout << "Welcome to Explore World.  We hope you enjoy your stay!"
     << std::endl;
+    */
 }
 
 

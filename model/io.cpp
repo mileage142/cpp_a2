@@ -8,7 +8,7 @@
 #include "io.h"
 using namespace model;
 
-std::unique_ptr<model::model> model::model::instance = nullptr;
+//std::unique_ptr<model::model> model::model::instance = nullptr;
 
 bool io::ascii_loader::load_file(std::string in_file)
 {
