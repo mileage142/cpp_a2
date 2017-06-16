@@ -34,28 +34,31 @@ namespace controller
              * \param ... (???)
              * \return bool
              */
-            static bool perform_command (const std::string& command_name,  ...);
-            static bool add_command (command command);
+             virtual bool perform_command (const std::string& command_name,  ...);
+             virtual bool add_command (command command);
     };
-   /*
+   
    class look : public command
     {
     private:
 
     public:
-        look() : {}
-        look(direction) : {}
-        look(item) : {}
-        std::string item_look(std::string name);
-        std::string direction_look(std::string dir);
+        //look() : {}
+        bool perform_command(look);
+        bool add_command(look);
+        //std::string item_look(std::string name);
+        //std::string direction_look(std::string dir);
     };
     class move : public command
     {
         private:
 
         public:
+        //move() : {}
+        bool perform_command(move);
+        bool add_command(move);
 
-        void move(direction) :{}
-    }
-    */
+        //void move(direction) :{}
+    };
+    
 }

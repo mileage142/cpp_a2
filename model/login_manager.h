@@ -17,7 +17,7 @@
 //#include "item.h"
 //#include "login_manager.h"
 //#include "io.h"
-//#include "model.h"
+#include "model.h"
 
 namespace model
 {
@@ -35,8 +35,9 @@ namespace model
              * \param player (???)
              * \return bool
              */
-            bool login (const std::string & name, const std::string & password, 
-            const character::player & player);
+            //streamlined function, hash happens in view
+            bool login();
             bool is_logged_in (const character::player& player);
+            character::player& get_current_player(void);
     };
 }

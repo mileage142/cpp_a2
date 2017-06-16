@@ -16,9 +16,9 @@
 #include "character.h"
 #include "game_location.h"
 #include "item.h"
-//#include "login_manager.h"
+#include "login_manager.h"
 #include "io.h"
-
+#include "../view/display_manager.h"
 //using namespace model;
 
 namespace model
