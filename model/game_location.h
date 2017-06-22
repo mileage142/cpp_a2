@@ -91,14 +91,14 @@ namespace model
                 std::string description;
                 std::vector<connection> entrances;
                 std::vector<connection> exits;
-                std::vector<room*> rooms;
+                std::vector<room> rooms;
                 
             public:
                 area(void): id(), name(), description(), entrances(), exits(), 
                 rooms(){}
                 area(int _id, std::string _name, std::string _description, 
                 std::vector<connection> _entrances, std::vector<connection> 
-                _exits, std::vector<room*> _rooms): id(_id), 
+                _exits, std::vector<room> _rooms): id(_id), 
                 name(_name), description(_description), entrances(_entrances), 
                 exits(_exits), rooms(_rooms){}
         };

@@ -195,7 +195,7 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
         std::cout << description << std::endl;
         std::vector<game_location::connection> entrances;
         std::vector<game_location::connection> exits;
-        std::vector<game_location::room*> rooms;
+        std::vector<game_location::room> rooms;
         game_location::area an_area(id, name, description, entrances, exits,
         rooms);
 
@@ -227,7 +227,7 @@ std::vector<game_location::area> io::ascii_area_loader::create_area()
                 std::cout << temp_room[1].g_room_no << std::endl;
                 std::cout << tr->area_id << std::endl;
                 //game_location::room* room = &(*tr);
-                a->rooms.push_back(&(*tr));
+                a->rooms.push_back(*tr);
             }
 
         }

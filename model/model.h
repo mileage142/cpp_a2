@@ -58,10 +58,6 @@ namespace model
             friend class ascii_player_loader;
             static model* get_instance(void)
             {
-                if(instance != nullptr)
-                {
-                    std::cout << "well i guess i can't print the instance" << std::endl;
-                }
                 if(instance == nullptr)
                 {
                     instance = std::unique_ptr<model>(new model());

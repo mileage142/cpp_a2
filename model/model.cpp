@@ -161,7 +161,7 @@ model::game_location::room* model::model::get_room (int id)
 {
     for(auto i=areas.begin();i!=areas.end(); ++i)
     {    
-        for(auto j=*i->rooms.begin(); j!=*i->rooms.end(); ++j)
+        for(auto j=i->rooms.begin(); j!=i->rooms.end(); ++j)
         {
             std::cout << "id: " << id <<std::endl;
             std::cout << "room no: " << j->g_room_no << std::endl;

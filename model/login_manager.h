@@ -11,13 +11,16 @@
 #include <memory>
 //for login manager
 #include <map>
+#include <utility>
 
 #include "character.h"
 //#include "game_location.h"
 //#include "item.h"
 //#include "login_manager.h"
 //#include "io.h"
+#pragma once
 #include "model.h"
+#include <map>
 
 namespace model
 {
@@ -25,7 +28,10 @@ namespace model
     {
         // Attributes
         private :
-            std::map<character::player*, bool> logins;
+        //using a vector to store players that are logged in.
+        //if they exist in logins, they are logged in.
+            std::vector<character::player*> logins;
+            //std::map<const character::player, bool> logins;
         // Operations
         public :
             /**
@@ -36,8 +42,10 @@ namespace model
              * \return bool
              */
             //streamlined function, hash happens in view
+            login_manager() : logins(){}
+            ~login_manager(){}
             bool login();
-            bool is_logged_in (const character::player& player);
+            bool is_logged_in (const character::player player);
             character::player& get_current_player(void);
     };
 }

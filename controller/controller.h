@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <memory>
+#include <iostream>
 #include "../model/model.h"
 #include "../view/display_manager.h"
 namespace controller {
