@@ -11,7 +11,7 @@
 #CFLAGS =-g
 
 all:  character.o game_location.o item.o io.o model.o login_manager.o display_manager.o command.o controller.o 
-		g++ -o game character.o game_location.o item.o io.o model.o login_manager.o display_manager.o command.o controller.o -g 
+		g++ -o game character.o io.o game_location.o item.o model.o login_manager.o display_manager.o command.o controller.o -lboost_program_options -lboost_filesystem -lboost_system -g 
 #Model
 
 modell:  character.o game_location.o item.o io.o model.o login_manager.o 

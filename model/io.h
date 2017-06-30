@@ -37,7 +37,6 @@ namespace model
             // Operations
             protected:
                 //TODO obvs this shouldnt be here
-                //std::vector<std::string> tokens;
                 std::vector<std::string> tokens;
             public :
                 ascii_loader(): tokens(){}
@@ -59,7 +58,7 @@ namespace model
             ~ascii_player_loader(){}
             //returns a list of pointers to player that can be added in model
             //std::list<std::unique_ptr<character::player>> load(std::string player_file);
-            std::vector<character::player> create_player(void);
+            std::vector<character::player> create_players(void);
         };
        
         class ascii_area_loader : public ascii_loader
@@ -69,7 +68,7 @@ namespace model
             public:
             ascii_area_loader() : area_temp(nullptr) {}
             ~ascii_area_loader(){}
-            std::vector<game_location::area> create_area(void); 
+            std::vector<game_location::area> create_areas(void); 
             friend class game_location;
             friend class model;
         };
@@ -80,7 +79,7 @@ namespace model
             public:
             ascii_room_loader() : room_temp(nullptr) {}
             ~ascii_room_loader(){}
-            std::vector<game_location::room> create_room(void);
+            std::vector<game_location::room> create_rooms(void);
         };
          class ascii_connection_loader : public ascii_loader
         {
@@ -89,7 +88,7 @@ namespace model
             public:
             ascii_connection_loader() : connection_temp(nullptr) {}
             ~ascii_connection_loader(){}
-            std::vector<game_location::connection> create_connection(void);
+            std::vector<game_location::connection> create_connections(void);
         };
 
         class ascii_shop_loader : public ascii_loader
@@ -99,7 +98,7 @@ namespace model
             public:
             ascii_shop_loader() : shop_temp(nullptr) {}
             ~ascii_shop_loader(){}
-            std::vector<character::shopkeeper> create_shopkeeper(void);
+            std::vector<character::shopkeeper> create_shopkeepers(void);
         };
         class ascii_item_loader : public ascii_loader
         {
@@ -110,7 +109,7 @@ namespace model
             //bool validate();
             ascii_item_loader() : item_temp(nullptr) {}
             ~ascii_item_loader(){}
-            std::vector<item::item> create_item(void);
+            std::vector<item::item> create_items(void);
             //std::list<std::unique_ptr<item::item>> load(std::string item_file); 
         };
 

@@ -48,7 +48,7 @@ namespace model
             bool binary_save (const std::string& name);
             bool binary_load (const std::string& name);
             bool ascii_save (const std::string& name);
-            bool ascii_load (void);
+            bool ascii_load (const std::string& name);
             character::player& get_player (unsigned int id);
             game_location::area* get_area (int id);
             game_location::room* get_room (int id);

@@ -45,7 +45,7 @@ namespace model
             login_manager() : logins(){}
             ~login_manager(){}
             bool login();
-            bool is_logged_in (const character::player player);
+            bool is_logged_in (const character::player* player);
             character::player& get_current_player(void);
     };
 }

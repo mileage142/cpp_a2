@@ -30,14 +30,7 @@ std::tuple<std::string, int> view::display_manager::display_login_details()
     
     
     //TODO note that all password references neeed to be hashed
-   /* while(password != "dino")
-    {
-        std::cout << "Error: invalid password entered.  Please try again" 
-        << std::endl;
-        std::cin >> password;
-    }
-    if(password == "dino")
-    {
+    /*{
         std::cout << "Welcome to Explore World.  We hope you enjoy your stay!" 
         << std::endl;
     }
@@ -53,11 +46,11 @@ std::string get_input()
     std::cin >> input;
     return input;
 }
-
+//TODO work out if this is extraneous
 void display_welcome_screen()
 {
     
-    controller::controller* c = controller::controller::get_instance(); 
+    //controller::controller* c = controller::controller::get_instance(); 
     /*while(c->login() == false)
     {
         std::cout << "Error: invalid password entered.  Please try again" 
